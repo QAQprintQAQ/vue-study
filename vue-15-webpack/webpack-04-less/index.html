@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+less 文件处理
+如果我们希望在项目中使用less、scss. stylus来写样式,webpack是否可以帮助我们处理呢?
+我们这里以less为例,其他也是一样的。我们还是先创建一 个less文件,依然放在Css文件夹中
+创建一个特殊的非css样式表,要想在html中显示效果,我们可以导入到html中,但是我们不推荐,我们希望能通过webpack将less文件进行打包
+1.需要在webpack入口main.js中依赖less文件
+require('./css/special.less');//不需要设置接收的变量,因为我们不需要less文件里面的内容,只需要添加一下依赖就行了
+
+2.下载less-loader(npm install --save-dev less-loader@4.1.0 less@3.9.0  less是将less文件转换成css的工具)
+
+3.在webpack.config.js中的module中导入less规则
+{//less规则
+        test: /\.less$/,//正则表达式,匹配.less结尾的文件
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "less-loader" // compiles Less to CSS
+        }]
+      },
+4.terminal 中重新打包发布
+npm run build
+-->
+<body>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

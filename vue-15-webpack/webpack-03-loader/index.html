@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+loader是webpack中-个非常核心的概念。
+webpack用来做什么呢?
+在我们之前的实例中,我们主要是用webpack来处理我们写的js代码,并且webpack会自动处理js之间相关的依赖。
+但是,在开发中我们不仅仅有基本的js代码处理,我们也需要加载css、图片,也包括一些高级的将ES6转成ES5代码,将TypeScript转成ES5代码,将scss、less转成css ,将jsx、.vue文件转成js文件等等。
+对于webpack本身的能力来说,对于这些转化是不支持的。那怎么办呢?给webpack扩展对应的loader就可以啦。
+loader使用过程:
+步骤一: 通过npm安装需要使用的loader
+步骤二:在webpack config.js中的modules关键字下进行配置
+大部分loader我们都可以在webpack的官网中找到,并且学习对应的用法。
+
+
+/*假如我们现在这个项目里面有css样式表,难道我们需要将样式表一个一个地从./src/css文件夹中一个一个地导入到html页面吗,答案是否定的。
+ 我们还是可以通过webpack将css文件进行打包。可能又会有疑问了,css不像是js文件,我们可以在webpack的入口main.js文件中通过导入相关依赖的js文件,
+ 这样的话,webpack就会在打包的时候根据main.js会依赖哪些js文件而做出相应的处理。但是css文件不同,我们的webpack入口main.js不需要依赖css文件
+ 这时候我们怎么在webpack入口main.js添加一些css依赖呢？
+ 1.可以通过require(''),来添加css依赖,注意我们这里不需要定义变量 let varname = require('') 来接收css文件,js文件中用到const {add, mul}
+ 是因为我们确实需要用到其他js中的变量,但是我们这里不要用到css文件中的内容,则只需要添加一个依赖关系就好了。
+
+ 2.这个时候我们也许就会直接打开终端terminal 输入调用运行本项目中的局部webpack对css文件也进行打包,但是会发生错误,因为webpack本身是没有这么强大
+ 的能力来处理css文件的,我们需要导入css文件相关的loader来帮助webpack进行打包css文件
+
+ 3.打开terminal 输入命令 npm install css-loader@2.0.2 --save-dev (一定要装2.0.2这个版本的css-loader)
+ C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-03-loader>npm install css-loader@2.0.2 --save-dev
+
+4.在webpack.config.js中加入module:{},css-loader规范
+module:{
+    rules: [//配置loader规则
+      {
+        test: /\.css$/,//配置css-loader规则
+        // use: [ 'style-loader', 'css-loader' ],
+        use: ['css-loader' ]//现在只有一个css-loader
+      }
+    ]
+  }
+
+5.在terminal中执行命令npm run build //这个时候已经不会报错,成功地打包css文件进入./dist/bundle.js中
+
+6.在浏览器中看css样式是否已经生效,我们发现css样式并没有生效,这是什么原因呢？
+因为css-loader只负责将css文件进行加载,不负责将css样式进行解析,更不会将css样式在浏览器中生效,那么我们应该怎么做才会让css样式生效呢？需要安装style-loader
+
+7.安装style-loader, style-loader负责将样式添加到DOM中
+在terminal输入npm install style-loader@0.23.1 --save-dev (版本号就用0.23.1)
+C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-03-loader>npm install style-loader@0.23.1 --save-dev
+
+8.在webpack.config.js中加入module:{},style-loader规范
+module:{
+    rules: [//配置loader规则
+      {
+        test: /\.css$/,//配置style-loader,css-loader规则
+        use: [ 'style-loader', 'css-loader' ],//'style-loader', 'css-loader'顺序不能换,loader从右往左加载
+
+      }
+    ]
+  }
+
+9.在浏览器中看css样式是否已经生效,已经生效了
+
+
+ */
+
+-->
+<body>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

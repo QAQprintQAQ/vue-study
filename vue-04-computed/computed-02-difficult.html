@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+  <div id= "app">
+
+    <!--  输出下面几本书的总价格-->
+    <!--  方法一:一般方法,不推荐-->
+    <h4>{{books[0].price}}+{{books[1].price}}+{{books[2].price}}+{{books[3].price}}+{{books[4].price}}</h4>
+
+    <!--方法二:通过写一个函数-->
+    <h4>{{getTotalPrice()}}</h4>
+
+    <!--  方法三:通过计算属性-->
+
+    <h4>{{totalPrice}}</h4>
+
+
+  </div>
+
+  <script src= "../js/vue.js"></script>
+  <script>
+    let vue = new Vue({
+      el: '#app',
+      data: {
+
+        books:[
+
+          {id:100,name:'unix编程艺术',price:120},
+          {id:101,name:'代码大全',price:120},
+          {id:102,name:'数据结构',price:120},
+          {id:103,name:'现代操作系统',price:120},
+          {id:104,name:'计算机网络',price:120},
+
+        ]
+      },
+
+      computed:{
+        //这种方法其实不好,没有什么技术含量
+        totalPrice1:function () {
+          return  this.books[0].price+this.books[1].price+this.books[2].price+this.books[3].price+this.books[4].price
+
+        },
+
+        //推荐使用计算属性
+        totalPrice: function () {
+
+          let result =0
+          for (let i = 0; i < this.books.length; i++) {
+
+            result+=this.books[i].price
+          }
+          return result
+
+        },
+
+
+      },
+
+
+
+      methods:{
+          //这种方法其实不好,没有什么技术含量
+          getTotalPrice1:function () {
+            return  this.books[0].price+this.books[1].price+this.books[2].price+this.books[3].price+this.books[4].price
+          },
+
+          //不推荐使用函数,函数的执行效率没有计算属性高,计算属性调用一次是有缓存的,而函数调用几次就计算几次
+          getTotalPrice: function () {
+
+            let result =0
+            for (let i = 0; i < this.books.length; i++) {
+
+              result+=this.books[i].price
+            }
+            return result
+
+        },
+
+
+      },
+
+    });
+  </script>
+</body>
+</html>

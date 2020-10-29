@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+// ES5之前因为if和for都没有块级作用域的概念，所以在很多时候，我们都必须借助于function的作用域来解决应用外面变量的问题
+//ES6中,加入了let, let它是有if和for的块级作用域的
+ //js中使用var来声明一个变量时,变量的作用域主要和函数的定义有关，针对于其他块定义来说是没有作用域的,比如if/for等,这在我们开发中往往会引发起一些问题
+
+-->
+<body>
+<!--for的块级出错测试.需求:当我们点击哪个按钮,就在控制台中输出哪个按钮被点击了-->
+  <button>按钮0</button>
+  <button>按钮1</button>
+  <button>按钮2</button>
+  <button>按钮3</button>
+  <button>按钮4</button>
+<script>
+
+// //1.变量作用域,变量在什么范围内可用
+// {
+//
+//   var name = 'liwenli';
+//   console.log(name);
+// }
+//
+// console.log(name);//明明是在name定义的作用域外面却还能被外部调用,这是不安全的
+
+
+  // //2.if块级引发的问题
+  // var func;
+  // if (true) {
+  //
+  //   var name = 'liwenli';//name这个变量按理说只能在if作用域里面才能生效,在if作用域的外边是访问不到的,但是我们现在仍然可以访问到
+  //
+  //   func = function () {
+  //     console.log(name);
+  //
+  //   };
+  //
+  //   name = 'kobe';//对name进行了赋值,name的值发生了更改,注意这是在作用域的外面
+  //
+  //   func();//在控制台输出的将会是kobe而不是liwenli,因为name是用var定义的,能在if的作用域外面对name进行更改
+  //
+  // }
+
+//2.用了es6语法后
+let func;
+if (true) {
+
+  let name = 'liwenli';//name这个变量按理说只能在if作用域里面才能生效,在if作用域的外边是访问不到的,但是我们现在仍然可以访问到
+
+  let func = function () {
+    console.log(name);
+
+  };
+
+  name = 'kobe';//对name进行了赋值,name的值发生了更改,注意这是在作用域的外面
+
+  func();//在控制台输出的将会是kobe而不是liwenli,因为name是用var定义的,能在if的作用域外面对name进行更改
+
+}
+
+
+
+//   //3.for块级引发的问题
+//
+// var btns = document.getElementsByTagName('button');
+// for (var i = 0; i < btns.length; i++) {
+//
+//   btns[i].addEventListener("click", function () {
+//     console.log('第' + i + '个按钮被点击了');//当我们点击第一个按钮时,控制台中输出的是第5个按钮被点击了,点击任意的按钮都是输出第5个按钮被点击了,这也是var i这个定义的原因
+//
+//   });
+// }
+
+
+
+// //通过闭包解决上面的问题
+// var btns = document.getElementsByTagName('button');
+// for (var i = 0; i < btns.length; i++) {
+//
+//   //为什么闭包可以解决这个问题？因为函数是一个作用域(这里用的是一个匿名函数)
+//   (  function (i) {
+//     btns[i].addEventListener("click", function () {
+//       console.log('第' + i + '个按钮被点击了');//当我们点击第一个按钮时,控制台中输出的是第5个按钮被点击了,点击任意的按钮都是输出第5个按钮被点击了,这也是var i这个定义的原因
+//
+//     });
+//
+//   }(i))
+//
+// }
+
+
+//通过使用es6语法let代替es5中的var
+
+let btns = document.getElementsByTagName('button');
+for (let i = 0; i < btns.length; i++) {
+
+  btns[i].addEventListener("click", function () {
+    console.log('第' + i + '个按钮被点击了');//当我们点击第一个按钮时,控制台中输出的是第5个按钮被点击了,点击任意的按钮都是输出第5个按钮被点击了,这也是var i这个定义的原因
+
+  });
+}
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div id="app">
+
+        <h4>当前计数:{{counter}}</h4>
+<!--        这样做也行，但是如果我们事件比较多的话，我们建议直接写一个函数-->
+<!--        <button v-on:click="counter++">+</button>-->
+<!--        <button v-on:click="counter&#45;&#45;">-</button>-->
+
+
+        <button v-on:click="add">+</button>
+        <button v-on:click="sub">-</button>
+
+<!--        @click=""就是v-on:click=""的语法糖(也就是简写,或者说是别名)-->
+        <button @click="add">+</button>
+        <button @click="sub">-</button>
+
+    </div>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    let vue = new Vue({
+
+        el: '#app',
+
+        data: {
+            counter: 0,
+        },
+
+        methods:{//这是methods,不是method,一定要记得加s
+
+            add: function () {
+                console.log('add方法被执行了')
+                // app.counter++//或者直接写成了this.counter--
+                this.counter++
+            },
+
+            sub: function () {
+                console.log('sub方法被执行了')
+                // app.counter-- //或者直接写成了this.counter--
+                this.counter--
+            },
+
+        },
+    });
+</script>
+</body>
+</html>

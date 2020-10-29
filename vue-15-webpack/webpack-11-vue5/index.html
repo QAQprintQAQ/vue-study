@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+本节目的:将cpnapp这子组件整合为vue component文件
+
+引言:上一节课我们已经将父组件vue实例中的所有代码都交给了cpnapp这个子组件,vue实例只需要调用一下cpnapp这个子组件就可以完成任务,而且代码看起来很清晰,
+然而main.js终究是个js文件,我们却在里面放了很多html标签等。所以我们必须要把cpnapp这个子组件从main.js中抽离出来放到一个单独的文件,这个文件就是.vue文件！
+
+1.首先我们在./src/目录下面创建一个目录vue。再在./src/vue/目录下面创建一个cpnapp.vue文件(名字自己随意起即可).
+
+2.我们可以观察目录./src/vue/目录下面的cpnapp.vue文件,你会发现它的代码分离和子组件cpnapp这个组件是多么的相似！
+自定义的子组件cpnapp中的template:``,代码(也就是html标签代码)就放在cpnapp.vue 中的<template></template>(也就是.vue文件中用来放html代码的地方)里面
+自定义的子组件cpnapp中的javascript代码就放在cpnapp.vue 中的<script></script>里面
+自定义的子组件cpnapp中的css代码就放在cpnapp.vue 中的<style scoped></style>里面
+
+3.竟然我们知道了它两的相似性,我们也可以猜想,子组件cpnapp中的代码是可以放到cpnapp.vue这个vue component文件下面的(子组件cpnapp和cpnapp.vue 都是组件,一个是自己写的,另外一个是vue提供的模板)
+对此,我们可以用cpnapp.vue 来取代自己创建的子组件cpnapp。我们将自己创建的子组件cpnapp中的代码拷贝到cpnapp.vue文件中,然后将自己创建的子组件cpnapp注释掉或者删掉
+
+
+4.我们已经创建了一个cpnapp.vue 的vue component组件,但是我们还没有用到它,怎么才能使用这个cpnapp.vue 组件呢？
+首先我们需要在webpack的入口main.js中引入cpnapp.vue 这个文件(也就是在main.js 文件中依赖./src/vue/cpnapp.vue文件)
+在main.js中导入cpnapp.vue文件
+import cpnapp from "./vue/cpnapp";//导入./src/vue/cpnapp.vue 这个文件(依赖./src/vue/cpnapp.vue)。
+
+5.我们已经在webpack入口main.js中导入了cpnapp.vue 这个文件,这个时候我们可以打开terminal。然后输入npm run build 命令进行打包
+能够正常打包吗？答案是不能!
+很容易理解啊,因为我们引入了一个webpack根本就不认识的文件.vue 文件或者说是webpack无法正常解析加载的文件,这时候我们会想到的是什么呢？
+没错,就是下载安装vue-loader以及vue-template-compiler(vue-loader负责加载.vue文件,vue-template-compiler负责编译.vue文件)。这时候我们会去webpack的官网找这两个loader
+的配置,但是令我们失望的是,webpack官网没有提供,我们应该去vue的官网找。
+npm install vue-loader@15.4.2 vue-template-compiler@2.5.21 --save-dev
+C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-10-vue4>npm install vue-loader@15.4.2 vue-template-compiler@2.5.21 --save-dev
+
+6.然后修改webpack.config.js webpack的配置文件,在webpack.config.js文件中添加webpack解析规则(webpack官网没有提供,我们应该去vue的官网找https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE)
+
+ {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+
+7.terminal 中输入 npm run build 后还是报错,因为vue-loader 15以上的版本需要一个插件才能够运行
+在webpack.config.js里添加插件--vue官网--（导航栏）生态系统--工具--vue loader--（导航栏）--如何从V14迁移--Vue Loader v15
+现在需要配合一个 webpack 插件才能正确使用：照图片提示分别添加 const VueLoaderPlugin = require('vue-loader/lib/plugin') 和  plugins: 【new VueLoaderPlugin()】，然后在package.json里面找到"vue-loader": "^15.4.2",并更改为"vue-loader": "^15.0.0",
+然后在控制终端npm install即可完成
+-->
+<body>
+
+<div id="app"></div>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

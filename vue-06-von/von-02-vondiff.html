@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+
+<button v-on:click="increase">+</button>
+v-on 语法糖(简写@)
+<button @click="increase">+</button>
+
+-->
+<body>
+
+<div id= "app">
+
+  <h4>当前计数为:{{counter}}</h4>
+  <button v-on:click="increase">+</button>
+  <button v-on:click="minus">-</button>
+  <!--  使用语法糖(简写)@-->
+  <button @click="increase">+</button>
+  <button @click="minus">-</button>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      counter:0,
+    },
+    methods:{
+      increase() {
+        //  es6的对象函数语法
+        return this.counter++;
+      },
+      minus() {
+        return this.counter--;
+      }
+
+    },
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+在父组件给子组件传递信息(props)时候,如果有驼峰命名将会出现什么问题呢？
+-->
+<body>
+
+<template id="cpntempl">
+  <div><!--需要一个根标签包裹起来-->
+    <h4>{{childinfo}}</h4>
+    <h4>{{message}}</h4>
+  </div>
+</template>
+
+<div id= "app">
+<!--  按理说是v-bind:childMessage="message",但是因为html不区分大小写？所以vue将childMessage转换为了child-message 。但是听说新版本的vue已经支持使用驼峰命名了,先mark一下-->
+   <cpn v-bind:childinfo="info" v-bind:child-message="message"></cpn>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn ={
+    template: '#cpntempl',
+    props: {//父组件传值在这
+      childinfo:{
+        //类型限制
+        type: Object,
+
+        //默认值设置
+        default() {
+          return {};
+        },
+
+        //是否为必传值
+        required: true,
+      },
+
+      childMessage:{//这里是驼峰命名,到时候需将childMessage转换为了child-message
+        type: String,
+
+        default() {
+          return '';
+        },
+
+        required: true,
+      },
+    },
+
+    data() {
+        //组件自己值在这里
+      return{
+        message: 'hello world',
+      }
+    },
+
+  }
+
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+
+      info: {//传递给子组件cpn
+        name: '李文利',
+        age:20,
+        sex: 'male',
+        height: 178,
+      },
+
+      message: 'hello vue',
+
+    },
+
+    components:{
+      cpn: cpn,//将cpn子组件注册到vue实例
+    },
+
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id= "app">
+   <cpn></cpn>
+<!--  我们能不能直接调用子组件cpn2标签呢？答案是不能！-->
+<!--  <cpn2></cpn2>&lt;!&ndash;直接调用cpn2无法解析,因为没有在vue实例下面进行注册,而是在cpn这个组件下面注册的,那么必须要在cpn组件里面使用cpn2子组件&ndash;&gt;-->
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  //注意子组件构造器一定要在父组件构造器之前先定义,要不然父组件就会找不到子组件构造器,而无法显示页面
+  let cpnc2 = Vue.extend({
+    template:`
+    <div>
+      <h4>我是标题2</h4>
+      <h4>我是内容2</h4>
+      <h4>我是结尾2</h4>
+    </div>
+
+    `,//这里一定要加上','表示结束
+  });//最后面可以加上';',但是不能加','
+
+
+  let cpnc = Vue.extend({
+    template:`
+    <div>
+      <h4>我是标题</h4>
+      <h4>我是内容</h4>
+      <h4>我是结尾</h4>
+      <cpn2></cpn2>
+    </div>
+
+    `,//这里一定要加上','表示结束
+    components:{//将组件构造器cpnc2注册到组件cpnc里面,表示组件cpnc是组件cpnc2的父组件。父组件cpnc可以使用子组件cpnc2
+      cpn2: cpnc2,
+    },
+  });//最后面可以加上';',但是不能加','
+
+
+
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+      message: 'hello vue',
+    },
+
+    components:{
+
+      cpn: cpnc,//组件构造器cpnc得在vue实例里面进行注册,组件构造器cpnc2只需要在cpnc构造器里面进行注册即可
+    }
+  });
+</script>
+</body>
+</html>

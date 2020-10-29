@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+父组件访问子组件
+父组件访问子组件:$refs(reference),为什么称为引用呢？其实就是相当于给子组件取了个别名
+注意:$refs取得子组件是一个对象类型,我们一般用来取其中的一个子组件的时候用的,如果我们非常需要获取全部的子组件的时候我们就会用到$children获取所有子组件的数组
+
+-->
+<body>
+<template id="cpntempl">
+  <div>
+
+    <h4>hello cpn</h4>
+
+  </div>
+
+
+</template>
+
+<template id="cpntempl2">
+  <div>
+
+    <h4>hello cpn2</h4>
+
+  </div>
+
+
+</template>
+
+
+<div id= "app">
+
+  <cpn ref="cpnalias"></cpn><!--能用双标签就用双标签,别用但标签,html大部分都是以双标签为准的！-->
+  <cpn2 ref="cpn2alias"></cpn2>
+  <button v-on:click="btnclick()">按钮</button>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn={
+
+    template: '#cpntempl',
+
+    data() {
+      return{
+
+        info:{
+          name: 'liwenli',
+          age:18,
+          sex:'male',
+          height:178,
+
+        },
+
+      }
+    },
+
+    methods:{
+      showmessage() {
+        console.log('cpn');
+
+      },
+    },
+
+  };
+
+  let cpn2={
+
+    template: '#cpntempl2',
+
+    data() {
+      return{
+
+        info:{
+          name: 'wangshuwei',
+          age:18,
+          sex:'female',
+          height:178,
+
+        },
+
+      }
+    },
+
+    methods:{
+      showmessage() {
+        console.log('cpn2');
+
+      },
+    },
+
+  };
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+
+    methods: {
+
+      btnclick() {
+        console.log('------$refs访问子组件-------');
+        console.log(this.$refs);//
+        console.log(this.$refs.cpnalias);
+        console.log(this.$refs.cpnalias.info);
+        console.log(this.$refs.cpnalias.info.name);
+        console.log(this.$refs.cpn2alias);
+        console.log(this.$refs.cpn2alias.info);
+        console.log(this.$refs.cpn2alias.info.name);//会发现在控制台中都打印出来了
+      }
+    },
+
+    components:{
+      cpn: cpn,
+      cpn2: cpn2,
+    }
+  })
+</script>
+</body>
+</html>

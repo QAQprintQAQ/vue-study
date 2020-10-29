@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+
+webpack
+一介绍
+什么是webpack ?
+我们先看看官方的解释:At its core, webpack is a static module bundler for modern JavaScript applications.
+从本质上来讲, webpack是一个现代的JavaScript应用的静态模块打包工具。
+但是它是什么呢?用概念解释概念,还是不清晰。
+我们从两个点来解释上面这句话:模块和打包
+
+前端模块化:
+在前面学习中,我已经用了大量的篇幅解释了为什么前端需要模块化。
+而且我也提到了目前使用前端模块化的一些方案: AMD、CMD、CommonJS、 ES6。
+在ES6之前,我们要想进行模块化开发,就必须借助于其他的工具,让我们可以进行模块化开发。
+并且在通过模块化开发完成了项目后,还需要处理模块间的各种依赖,并且将其进行整合打包。
+
+而webpack其中一个核心就是让我们可能进行模块化开发,并且会帮助我们处理模块间的依赖关系。
+而且不仅仅是JavaScript文件,我们的CSS、图片、json文件等等在webpack中都可以被当做模块来使用(在后续我们会看到)。
+这就是webpack中模块化的概念。
+
+
+grunt/gulp和webpack有什么不同呢?
+grunt/gulp更加强调的是前端流程的自动化,模块化不是它的核心。
+webpack更加强调模块化开发管理,文件压缩合并、预处理等功能,是他附带的功能。
+
+
+二前期准备
+1安装node v10.13.0(也可以安装较新版本的长期支持版本)
+2管理员身份运行cmd,输入 npm install webpack@3.6.0 -g (也可以使用高版本的webpack,好像需要安装webpack-cli才能安装了)
+
+
+三使用webpack
+1.terminal 进入当前项目目录(win下面路径是用'\',而不是'/')C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-01-start>
+2.用webpack对.\src\main.js中的js文件打包到.\dist\bundle.js 文件(webpack会自动处理main.js中的依赖关系)  webpack .\src\main.js .\dist\bundle.js
+如果使用的webpack比较新,则需要使用这条语句 (webpack .\src\main.js -o .\dist\bundle.js)
+3.刷新目录这时候在目录.\dist\bundle.js将会出现
+4.最后就是将./dist/bundle.js引入到html中,使用bundle.js即可
+5.运行index.html(在浏览器中打开),这时候可以查看控制台输出了计算结果。webpack整个使用流程结束！
+6.当我们在/src/main.js中新增了其他.js依赖(即导入了其他的变量的时候),我们需要对项目进行重新打包.点击terminal,按一下上键,再回车就行了。再在浏览器控制台中上就能看见新增的内容了
+-->
+
+<!--
+
+文件和文件夹解析:
+dist文件夹:用于存放之后打包的文件
+src文件夹:用于存放我们写的源文件
+main.js :项目的入口文件。具体内容查看下面详情。
+mathUtils.js :定义了一 些数学工具函数 ,可以在其他地方引用,并且使用。具体内容查看下面的详情。
+index.html :浏览器打开展示的首页html
+package.json :通过npm init生成的, npm包管理的文件(暂时没有用上，后面才会用上)
+mathUtils.js文件中的代码:
+main.js文件中的代码:
+-->
+
+<body>
+
+
+<!--下面引入main.js方式是不正确的,因为main.js中包含了common.js语法,而我们的浏览器只支持(认识)es6语法。
+这个时候我们就需要用到webpack进行打包,处理js文件各种依赖关系,最后得到一个bundle.js文件,我们只需要使用这个浏览器认识的bundle.js文件就可以了-->
+<!--<script src="./src/main.js"></script>-->
+<script src="./dist/bundle.js"></script>
+
+
+</body>
+</html>

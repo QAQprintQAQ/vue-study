@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <style>
+
+    .active{
+
+        color: deeppink;
+    }
+  </style>
+</head>
+<!--
+b-bind:除了绑定像 src 和 href之外,还可以绑定像class属性等
+本节:v-bind绑定class属性
+
+-->
+<body>
+    <div id= "app">
+
+      <h4 class="active">{{message}}</h4><!--这种是v-bind没有绑定class属性时候的普通模式-->
+
+<!--
+v-bind:class="{key:value,key2:value2}"
+{}表示一个对象,而不是mustache语法
+v-bind:class="{key(类名1):value(布尔值1), key(类名2):value(布尔值2)}"
+v-bind:class="{class1:true,class2:false}",当boolean为true的时候class1将会被添加到class里面,当为false时候将不会被添加到class里面
+
+-->
+      <h4 v-bind:class="{active:isactive}">{{message}}</h4><!--这种是v-bind绑定了class属性时候的高级模式-->
+      <button v-on:click="btnClick()">按钮</button>
+
+
+
+      <h4 v-bind:class="getClasses()">{{message}}</h4><!--这种是v-bind绑定了class属性时候的高级模式-->
+      <button v-on:click="btnClick()">按钮</button>
+
+    </div>
+
+    <script src= "../js/vue.js"></script>
+    <script>
+      let vue = new Vue({
+        el: '#app',
+        data: {
+          message: 'hello vue',
+          active: 'active',
+          isactive: true ,//若改为false则该类将不会被添加到class属性里面,自然active 这个class属性也不会作用在message上
+        },
+
+        methods:{
+            btnClick: function () {
+              this.isactive = !this.isactive//这个函数用于控制isactive的boolean值
+            },
+
+            //如果class对象的类太多了,则可以通过写一个函数将class的对象返回
+            getClasses:function () {
+              return {active:this.isactive}//记得不要直接从上面那里粘贴过来就不管了,因为是函数,则需要在isactive名字前面添加一个'this',否则会指代不清
+
+            }
+
+        },
+      });
+    </script>
+</body>
+</html>

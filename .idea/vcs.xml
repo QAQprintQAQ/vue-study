@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-16-vuecli/vuecli-01-clitest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-01-routertest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-02-dynamicrouter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-03-lazyload" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-03-vuestructure" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-04-nestingrouter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-05-paramtransfer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-06-beforeeach" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-06-naviguide" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-17-vuerouter/vuerouter-07-keepalive" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-01-intro" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-02-mutations" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-03-getters" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-04-responsiveprinciple" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-05-constant" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-06-actions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-07-modules" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-19-vuex/vuex-08-refactorstore" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learn-04-axiosinstance" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-01-intro" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-02-axiosall" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-03-config" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-04-instance" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-05-encapsulation" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-06-interceptors" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-axios/learnaxios-07-vuegetdata" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vue-20-learnaxios/learnaxios-01-intro" vcs="Git" />
+  </component>
+</project>

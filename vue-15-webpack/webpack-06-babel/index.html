@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+
+注意,一旦在terminal中输入 npm run build 就会把当前的es6全部转换成为es5语法,一定要注意噢
+babel将es6转换为es5
+1.下载babel.
+npm install --save-dev babel-loader@7.1.5 babel-core@6.26.3 babel-preset-es2015@6.24.1
+2.webpack.config.js modules配置babel相关的规则
+
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']//将es6转换为es5
+          }
+        }
+      },
+
+3.terminal输入命令 npm run build
+会将src/js文件中的es6语法全部转换为es5的语法.
+-->
+<body>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

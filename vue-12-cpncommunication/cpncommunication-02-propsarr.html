@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+父组件向子组件传递数据(本节我们把vue实例当作是一个父组件,cpn当作是子组件,主要是为了避免过于复杂)
+在组件中,使用选项props来声明需要从父级接收到的数据。父组件向子组件传递数据
+props的值有两种方式:
+方式一 :字符串数组,数组中的字符串就是传递时的名称。
+方式二:对象,对象可以设置传递时的类型,也可以设置默认值等。
+-->
+<body>
+
+<!--cpn组件里的html代码在这-->
+<template id="cpntempl">
+  <div><!--template下面的div标签是必要的,不然会出现错误-->
+    <h4>{{componentmessage}}</h4>
+    <h4>{{cmessage}}</h4>
+    <ul v-for="item in cmovies">
+      <li>{{item}}</li><!--无序列表形式输出数组-->
+    </ul>
+  </div>
+</template>
+
+<div id= "app">
+  <cpn v-bind:cmovies="movies" v-bind:cmessage="message"></cpn><!--父组件传递消息给子组件props第二步:使用子组件cpn时候,props属性中的变量名绑定父组件相应的变量名-->
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+
+  //这种组件构造器的方法和new一个vue实例差不多。
+  let cpn = {
+    template: '#cpntempl',//cpntempl记得加上'#',和''号。
+
+    //cmovies , cmessage是变量,不要被引号给欺骗了,这个是数组的原因必须要加上引号
+    props: ['cmovies', 'cmessage'],//父组件传过来的数据,放在这里。父组件传数据给子组件第一步，给子组件加上props属性(这个属性值可以是数组类型,也可以是对象类型,下一节将对象类型)
+    data() {
+      return {
+        componentmessage:'hello vue form itself',//子组件自身数据放在这里
+
+      }
+    }
+  };
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      //父组件向服务器获取数据都放在这里
+      movies: ['百变小樱', '复仇者联盟', '我和我的祖国'],
+      message: 'hello vue from parent',
+    },
+    components:{
+      cpn: cpn,
+    }
+  })
+</script>
+
+</body>
+</html>

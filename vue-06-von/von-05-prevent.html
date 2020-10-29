@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--.prevent修饰符,用于阻止默认的行为-->
+<body>
+<div id= "app">
+
+  <form action="baidu" method="post">
+     <input type="submit" value="提交" v-on:click.prevent="submitClick"><!--写在click的后面-->
+  </form>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+
+    },
+
+    methods:{
+
+      submitClick() {
+
+        console.log('submitClick');
+      },
+    },
+  });
+</script>
+</body>
+</html>

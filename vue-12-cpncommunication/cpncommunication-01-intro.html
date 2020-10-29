@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+在上一个小节中,我们提到了子组件是不能引用父组件或者Vue实例的数据的。
+但是,在开发中,往往一些数据确实需要从上层传递到下层:
+比如在一个页面中,我们从服务器请求到了很多的数据。
+其中一部分数据,并非是我们整个页面的大组件来展示的,而是需要下面的子组件进行展示。
+这个时候,并不会让子组件再次发送一个网络请求 ,而是直接让大组件(父组件)将数据传递给小组件(子组件).
+
+如何进行父子组件间的通信呢?Vue官方提到
+通过props父组件向子组件传递数据
+通过$emit()子组件向父组件发送消息
+
+
+-->
+<body>
+
+<div id= "app">
+  <h4>{{message}}</h4>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+  })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+上一节我们使用的插槽中,我们没有定义名字,当我们有多个插槽的时候我们就无法得到区分,所以我们如何解决这个问题呢？具名插槽(具有名字的插槽)
+
+-->
+<body>
+<template id="cpntempl">
+
+  <div>
+
+    <slot name="left"><button>按钮</button></slot>
+    <slot name="medium"><input type="text"></slot>
+    <slot name="right"><img src="../imag/logo.png"></slot>
+
+  </div>
+</template>
+
+
+<div id= "app">
+
+
+  <cpn>
+<!--    我们要注意slot名字的位置！-->
+<!--    有slot名字后所有的slot都可以根据需求做出相应标签修改-->
+    <h4 slot="left">hello left</h4>
+    <h4 slot="medium">hello left</h4>
+    <h4 slot="right">hello left</h4>
+  </cpn>
+
+  <cpn>
+<!--    将slot left , medium , right都修改为button标签-->
+      <button slot="left">left</button>
+      <button slot="medium">medium</button>
+      <button slot="right">right</button>
+  </cpn>
+
+  <cpn>
+    <input type="text" slot="left">
+    <button slot="medium">medium</button>
+    <a href="http://www.baidu.com" slot="right">百度一下</a>
+<!--    将slot left, medium , right 分别修改为input标签, button标签,a标签-->
+  </cpn>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn = {
+    template: '#cpntempl',
+    data() {
+      return{
+        cpnmessage: 'hello cpn',
+
+      };
+    },
+  };
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+
+    components: {
+      cpn: cpn,
+    },
+  })
+</script>
+</body>
+</html>

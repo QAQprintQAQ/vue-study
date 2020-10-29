@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+key = "userName" 和 key = "userEmail"是不同的,因此vue将不会实现复用.即切换邮箱登录后,之前通过用户登录的已经输入的字符将会被清空.当切换前后的key的值相同时候将不会清楚用户登录的已经输入的字符
+-->
+<!--
+小问题:
+如果我们在有输入内容的情况下,切换了类型,我们会发现文字依然显示之前
+的输入的内容。
+但是按道理讲,我们应该切换到另外一个input元素中了.
+在另- -个input元素中,我们并没有输入内容。
+为什么会出现这个问题呢?
+问题解答:
+这是因为Vue在进行DOM渲染时,出于性能考虑，会尽可能的复用已经存在
+的元素,而不是重新创建新的元素.
+在上面的案例中, Vue内部会发现原来的input元素不再使用,直接作为else中
+的input来使用了。
+解决方案:
+如果我们不希望Vue出现类似重复利用的问题,可以给对应的input添加key
+并且我们需要保证key的不同
+
+-->
+<body>
+<div id= "app">
+  <span v-if="status">
+    <label for="userName">用户账号</label>
+    <input type="text" id="userName" placeholder="用户登录" key ="userName">
+    <input type="submit">
+    <button v-on:click="switchEmail()">切换</button>
+  </span>
+
+  <span v-else>
+    <label for="userEmail">邮箱登录</label>
+    <input type="text" id="userEmail" placeholder="邮箱登录" key ="userEmail">
+    <input type="submit">
+    <button v-on:click="switchUser()">切换</button>
+
+  </span>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      status: true,//记录当前的状态true或者false,true则表示用户登录,false则表示邮箱登录
+    },
+
+    methods:{
+
+      switchEmail(){
+
+        this.status = !this.status;//将status的状态改变为false,表示邮箱登录
+
+      },
+
+      switchUser(){
+
+        this.status = !this.status;//将status的状态改变为true,表示用户名登录
+
+      },
+    },
+  });
+</script>
+</body>
+</html>

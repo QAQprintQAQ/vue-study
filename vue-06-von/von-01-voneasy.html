@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+事件监听
+在前端开发中,我们需要经常和用于交互。
+这个时候,我们就必须监听用户发生的时间,比如点击、拖拽、键盘事件等等
+在Vue中如何监听事件呢?使用v-on指令
+当通过methods中定义方法,以供@click调用时,需要注意参数问题:
+情况一:如果该方法不需要额外参数,那么方法后的()可以不添加。
+但是注意:如果方法本身中有一个参数 ,那么会默认将原生事件event参数传递进去
+情况二:如果需要同时传入某个参数,同时需要event时,可以通过$event传入事件。
+
+
+-->
+<body>
+
+<div id= "app">
+
+  <h4>当前计数为:{{counter}}</h4>
+  <button v-on:click="counter++">+</button>
+  <button v-on:click="counter--">-</button>
+  <button v-on:click="increase()">+</button>
+  <button v-on:click="minus()">-</button>
+<!--  情况一:如果该方法不需要额外参数,那么方法后的()可以不添加。-->
+  <button v-on:click="increase">+</button>
+  <button v-on:click="minus">-</button>
+<!--  使用语法糖(简写)@-->
+  <button @click="increase">+</button>
+  <button @click="minus">-</button>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+       counter:0,
+    },
+    methods:{
+      increase() {
+      //  es6的对象函数语法
+        return this.counter++;
+      },
+      minus() {
+        return this.counter--;
+      }
+
+    },
+  });
+</script>
+</body>
+</html>

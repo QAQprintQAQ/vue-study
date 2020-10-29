@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--
+本节目标:将data数组中的
+-->
+<body>
+
+    <div id="app">
+<!--      这样只会以列表的形式展现在浏览器的页面上  -->
+<!--        {{names}}-->
+
+
+<!--        下面这种方式是可以将names以列表的形式展现的，但是效率太低了！-->
+<!--        <ul>-->
+<!--            <li>{{names[0]}}</li>-->
+<!--            <li>{{names[1]}}</li>-->
+<!--            <li>{{names[2]}}</li>-->
+<!--            <li>{{names[3]}}</li>-->
+<!--        </ul>-->
+
+
+<!--        这种方式式最好的,是由vue提供的-->
+        <ul>
+            <li  v-for="item in names">{{item}}</li>
+        </ul>
+
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+            //const用于定义常量，let定义变量
+             let vue = new Vue({
+                el: '#app',
+                data:{
+
+                    names: ['李文利','王淑玮','张金龙','郑身林'],//vue是响应式的
+                },
+            });
+    </script>
+
+</body>
+</html>

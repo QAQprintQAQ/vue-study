@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+.stop  调用event.stopPropagation().
+使用了.stop修饰符后,点击子标签,父标签console不会连带的显示divClick
+
+-->
+<body>
+<div id= "app">
+
+  <div v-on:click="divClick">
+    <p v-on:click="pClick">文字</p><!--当我们点击子标签p标签里面的内容时候,父标签div按钮也会被点击到,为了让我们点击p标签里面的内容时候console只显示pClick,为了解决这个问题我们应该用到.stop修饰符-->
+    <button v-on:click="btnClick">按钮</button>
+
+  </div>
+  <div v-on:click="divClick">
+    <!--  使用了.stop修饰符后,点击子标签,父标签console不会连带的显示divClick-->
+    <p v-on:click.stop="pClick">文字</p><!--当我们点击子标签p标签里面的内容时候,父标签div按钮也会被点击到,为了让我们点击p标签里面的内容时候console只显示pClick,为了解决这个问题我们应该用到.stop修饰符-->
+    <button v-on:click.stop="btnClick">按钮</button>
+
+  </div>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+
+
+    },
+
+    methods:{
+
+      btnClick() {
+        console.log('btnClick');
+      },
+      divClick() {
+        console.log('divClick');
+      },
+
+      pClick() {
+        console.log('pClick');
+      },
+    },
+  });
+</script>
+</body>
+</html>

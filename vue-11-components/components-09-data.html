@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+为什么组件里的data是一个函数,并且返回的数据是一个对象呢？函数返回对象就是为了组件中数据互不干扰！
+我们都知道,组件的产生是用来复用的,复用的组件必然会遇到一个问题.组件里的数据是共享的吗,显然不是共享的,假如是共享的,那复用这个组件数据就乱套了.
+对此,假如data是一个函数的话,函数每次返回的都是一个不同的地址。不同的地址必然是一个不同的对象,不同的对象数据自然是相互独立的。
+
+请查看person()函数返回的对象不是相同的
+
+-->
+<body>
+
+<!--将html从组件中抽离方法二,当我们不用脚手架时候,这种方法还是比较好的,比较建议-->
+<template id="cpntempl">
+  <div>
+    <div>
+     <h4>当前计数:{{counter}}</h4>
+      <button v-on:click="increase()">+</button>
+      <button v-on:click="minus()">-</button>
+    </div>
+  </div>
+</template>
+
+<div id= "app">
+  <!--  调用组件,生成了三个计数器,但是我们发现三个计数器的数字是相互独立的,这就是data()是函数的好处,假如data不是函数,那么三个计数器的计数值将会同步地发生改变,三个计数相同-->
+  <cpn></cpn>
+  <cpn></cpn>
+  <cpn></cpn>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  //这个person()函数用来检测函数返回的是不是同一个对象,还是每次返回的都是不同的对象(即返回的地址不同)
+  function person() {
+    return {
+      name: '李文利',
+      age: 20,
+      sex:'male',
+    };
+  }
+
+  let obj = person();
+  let obj2 = person();
+  console.log(obj == obj2);//console控制台中显示的是false,即函数返回的对象不是同一个对象,它会创建新的对象并返回。这也是我们更推荐使用computed计算属性,而不是函数的原因
+
+
+  //注册全局组件,'cpn'表示调用组件的标签名
+  Vue.component('cpn',{
+    template: '#cpntempl',//对应于template标签中的id
+    //  组件里面也应该有一个位置用来放置组件自己的数据,这个位置就是data,组件里面的data是一个函数,它返回一个对象,不能返回字符串
+    data() {//组件里面有自己地数据
+      return {
+        counter: 0,
+      }
+    },
+
+    methods:{//组件里面有自己地方法
+
+      increase() {
+        this.counter++
+
+      },
+
+      minus() {
+        this.counter--
+
+      },
+    }
+  });//最后面可以加上';',但是不能加','
+
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+      message: 'hello vue',
+    },
+    //  注册局部组件方式
+
+  });
+</script>
+</body>
+</html>

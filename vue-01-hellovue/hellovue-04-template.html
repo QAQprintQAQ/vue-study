@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+这是一个模板,添加到vue的模板库中,这样就不需要重复的写一些初始代码了
+-->
+<body>
+
+<div id="app">
+  <h4>{{message}}</h4>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+  });
+</script>
+</body>
+</html>

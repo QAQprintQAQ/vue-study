@@ -1,0 +1,33 @@
+body {
+    background: url("../img/logo.jpg");
+    /*不是url("src/img/logo.jpg")是 url("../img/logo.jpg"),修改了img这个目录后,idea自动的就将'..'替换成了'src',导致我找了一个多小时的bug*/
+
+    /*
+     [8] ./src/img/logo.jpg 82 bytes {0} [built]
+    */
+    /*
+    我们在css样式中用一张图片做为背景,我们能直接npm run build 吗？答案是不能
+    当我们通过webpack加载css的时候,webpack会发现有一张图片,webpack也会将这张图片当作一个组件去处理,但是webpack又没有那个能力去处理,最后就会报错
+    1.我们需要安装处理url的依赖去处理图片 npm install --save-dev url-loader@1.1.2
+    C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-05-image>npm install --save-dev url-loader@1.1.2
+    2.webpack.config.js中的module进行配置url规则
+
+     {
+            test: /\.(png|jpg|gif)$/,
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: 8192
+                }
+              }
+            ]
+          }
+    3.当加载的图片小于limit时， 会将图片编译成base64字符串形式图片
+    当加载的图片大于limit时候,要使file-loader模块进行加载 npm install --save-dev file-loader@3.0.1
+    4.添加file-loader不需要进行webpack.config.js配置。(只需要下载就行了)
+
+
+    */
+
+}

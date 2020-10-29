@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id= "app">
+
+<!--  通过直接拼接,不宜采用,因为html中尽量保持简洁-->
+  <h4>{{firstName}} {{lastName}}</h4>
+<!--  通过定义methods,调用8次就重新计算8次-->
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+  <h4>{{getFullName()}}</h4>
+<!--  通过computed,调用8次只需要计算1次,因为有缓存,因此我们通常推荐使用计算属性-->
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+
+
+    data: {
+
+      firstName: 'wenli',
+      lastName: 'li',
+    },
+
+    computed:{
+
+      fullName: function () {
+          return this.firstName + ' ' + this.lastName
+        },
+
+      },
+    methods:{
+
+      getFullName:function () {
+        return this.firstName + ' ' + this.lastName
+
+      },
+    },
+
+  });
+</script>
+</body>
+</html>

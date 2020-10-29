@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+1.什么是异步
+你可能知道，Javascript语言的执行环境是"单线程"（single thread）。
+所谓"单线程"，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。
+这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。
+常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。
+
+为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步（Synchronous）和异步（Asynchronous）。
+"同步模式"就是上一段的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；"异步模式"则完全不同，每一个任务有一个或多个回调函数（callback），前一个任务结束后，不是执行后一个任务，而是执行回调函数，后一个任务则是不等前一个任务结束就执行，所以程序的执行顺序与任务的排列顺序是不一致的、异步的。
+"异步模式"非常重要。在浏览器端，耗时很长的操作都应该异步执行，避免浏览器失去响应，最好的例子就是Ajax操作。在服务器端，"异步模式"甚至是唯一的模式，因为执行环境是单线程的，如果允许同步执行所有http请求，服务器性能会急剧下降，很快就会失去响应
+
+
+2.promise
+//new Promise((resolve,reject)=>{//这里只负责网络请求，不负责处理数据}).then(()=>{//成功调用负责处理数据，以及第二次请求}).catch(()=>{//失败调用})
+  new Promise((resolve, reject) => {
+    setTimeout((data) => {
+      resolve(data);//成功的时候调用resolve(data)函数，resolve()函数会调用then()函数处理data数据和第二次网络请求等。new Promise()里面没有处理data,而是放到了then()里面处理
+      reject('error message');//失败的时候调用reject()函数，reject()函数会调用catch()函数返回错误信息！
+    }, 2000);
+  }).then((data) => {//如果new Promise()里面调用的是resolve()，则会进入then(()=>{})函数里面！！
+  //   处理data数据的代码以及第二次网络请求！
+
+  }).catch((err)=>{//如果new Promise()里面调用的是reject()，则进入到catch((err)=>{})函数里面
+    console.log(err);//打印错误信息！
+  })
+
+-->
+<body>
+
+<script>
+
+
+  //使用setTimeout模拟网络请求
+  /*
+  setTimeout(() => {
+    console.log('Hello world!');
+  },1000);
+
+   */
+
+  /*
+  new Promise((resolve,reject) => {
+    //resolve ,reject 本身又是函数！
+    setTimeout(() => {
+
+      console.log('hello world!');
+      console.log('hello world!');
+      console.log('hello world!');
+      console.log('hello world!');
+      console.log('hello world!');
+      setTimeout(() => {
+        console.log('hello vue!');
+        console.log('hello vue!');
+        console.log('hello vue!');
+        console.log('hello vue!');
+        console.log('hello vue!');
+        setTimeout(() => {
+          console.log('hello js!');
+          console.log('hello js!');
+          console.log('hello js!');
+          console.log('hello js!');
+          console.log('hello js!');
+          setTimeout(() => {
+            console.log('this is data!');
+          },2000);
+
+        },2000);
+
+      },2000);
+
+    }, 2000);
+
+  });//这种写法太啰嗦，太烦琐了，太混乱了
+
+*/
+
+
+//  下面是写法的演变！
+//第一步！
+  /*
+  new Promise((resolve, reject) => {//Promise是一个对象
+    //resolve ,reject 本身又是函数！
+    setTimeout(() => {
+      resolve();//一旦调用了resolve()便会调用then()函数，执行第一次网络请求的代码
+    }, 2000);
+
+  }).then(() => {//then()紧跟着new Promise()的后面，即new Promise().then().
+    //第一次网络请求的代码！！！
+    console.log('hello world!');
+    console.log('hello world!');
+    console.log('hello world!');
+    console.log('hello world!');
+    console.log('hello world!');
+    setTimeout(() => {
+      console.log('hello vue!');
+      console.log('hello vue!');
+      console.log('hello vue!');
+      console.log('hello vue!');
+      console.log('hello vue!');
+      setTimeout(() => {
+        console.log('hello js!');
+        console.log('hello js!');
+        console.log('hello js!');
+        console.log('hello js!');
+        console.log('hello js!');
+        setTimeout(() => {
+          console.log('this is data!');
+        },2000);
+
+      },2000);
+
+    },2000);
+      }
+  );
+
+
+   */
+//  第二步
+  /*
+  new Promise((resolve, reject) => {
+    //resolve ,reject 本身又是函数！
+    setTimeout(() => {
+      resolve();//一旦调用了resolve()便会调用then()函数，我们会在then()函数里面处理我们的数据，
+    }, 2000);
+
+  }).then(() => {
+
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();//一旦执行了resolve()，就会跳到then()方法里面执行第二次网络请求的代码
+      }, 2000);
+    }).then(() => {
+      console.log('hello vue!');
+      console.log('hello vue!');
+      console.log('hello vue!');
+      console.log('hello vue!');
+      console.log('hello vue!');
+      setTimeout(() => {
+        console.log('hello js!');
+        console.log('hello js!');
+        console.log('hello js!');
+        console.log('hello js!');
+        console.log('hello js!');
+        setTimeout(() => {
+          console.log('this is data!');
+        },2000);
+
+      },2000);
+    });
+
+
+      }
+  );
+
+
+   */
+//  第三步
+  /*
+  new Promise((resolve, reject) => {
+    //resolve ,reject 本身又是函数！
+    setTimeout(() => {
+      resolve();//一旦调用了resolve()便会调用then()函数，执行第一次网络请求代码
+    }, 2000);
+
+  }).then(() => {
+
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();//一旦调用了resolve()便会调用then()函数，执行第二次网络请求代码
+          }, 2000);
+        }).then(() => {
+          console.log('hello vue!');
+          console.log('hello vue!');
+          console.log('hello vue!');
+          console.log('hello vue!');
+          console.log('hello vue!');
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve();//一旦调用了resolve()便会调用then()函数，执行第三次网络请求代码
+            },2000);
+          }).then(() => {
+
+              console.log('hello js!');
+              console.log('hello js!');
+              console.log('hello js!');
+              console.log('hello js!');
+              console.log('hello js!');
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                console.log('this is data!');
+              },2000);
+            });
+          });
+        });
+
+      }
+  );
+
+   */
+//第四步
+/*
+什么时候会用到Promise对象？
+1.当有异步操作时侯会用到Promise
+
+  new Promise((resolve, reject) => {//Promise是一个对象
+    //resolve ,reject 本身又是函数！
+    //new Promise((resolve,reject)=>{//这里只负责网络请求，不负责处理数据}).then(()=>{//这里负责处理数据，以及第二次请求})
+    setTimeout(() => {
+
+      resolve();//一旦调用了resolve()便会调用then()函数，我们会在then()函数里面处理我们的数据，一旦调用了resolve()便会调用then()函数，执行第一次网络请求代码
+    }, 2000);
+
+  }).then(() => {//then()紧跟着new Promise()的后面，即new Promise().then().处理数据，执行第一次网络请求代码
+
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();//一旦调用了resolve()便会调用then()函数，处理数据，并执行第二次次网络请求代码
+          }, 2000);
+        })
+
+ */
+
+
+//new Promise((resolve,reject)=>{//这里只负责网络请求，不负责处理数据}).then(()=>{//这里负责处理数据，以及第二次请求})
+  new Promise((resolve, reject) => {//Promise是一个对象
+    //resolve ,reject 本身又是函数！
+    setTimeout(() => {
+      resolve();//一旦调用了resolve()便会调用then()函数，我们会在then()函数里面处理我们的数据，一旦调用了resolve()便会调用then()函数，执行第一次网络请求代码
+    }, 2000);
+
+  }).then(() => {//then()紧跟着new Promise()的后面，即new Promise().then().执行第一次网络请求代码
+
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+        console.log('hello world!');
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();//一旦调用了resolve()便会调用then()函数，执行第二次次网络请求代码
+          }, 2000);
+        }).then(() => {
+          console.log('hello vue!');
+          console.log('hello vue!');
+          console.log('hello vue!');
+          console.log('hello vue!');
+          console.log('hello vue!');
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve();//一旦调用了resolve()便会调用then()函数，执行第三次网络请求代码
+            },2000);
+          }).then(() => {
+
+            console.log('hello js!');
+            console.log('hello js!');
+            console.log('hello js!');
+            console.log('hello js!');
+            console.log('hello js!');
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve();//一旦调用了resolve()便会调用then()函数，执行第四次网络请求代码
+              }, 2000);
+            }).then(() => {
+              console.log('this is data!');
+            //  假如还有请求，继续 return new Promise().then()!!
+            });
+          });
+        });
+
+      }
+  );
+
+  //当返回的是reject()时候
+  new Promise((resolve, reject) => {
+    setTimeout((data) => {
+      // resolve(data);//成功的时候调用resolve(data)函数，resolve()函数会调用then()函数处理data数据和第二次网络请求等。new Promise()里面没有处理data,而是放到了then()里面处理
+      resolve('hello world')//data数据没有暂时没有，就先不处理了，先用自己固定的一个字符串hello world代替
+      reject('error message');//失败的时候调用reject()函数，reject()函数会调用catch()函数返回错误信息！
+    }, 2000);
+  }).then((data) => {
+    //   处理data数据的代码以及第二次网络请求！
+    console.log(data);
+
+  }).catch((err)=>{
+    console.log(err);//打印错误信息！
+  })
+
+
+</script>
+</body>
+</html>

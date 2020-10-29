@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+<!--  引入样式表-->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<!--
+书籍购物车案例
+
+-->
+<body>
+
+<div id="app">
+
+<!--  v-if-->
+  <div v-if="books.length>0">
+
+
+  <table>
+    <thead>
+    <tr>
+      <th>书籍序号</th>
+      <th>书籍名称</th>
+      <th>出版日期</th>
+      <th>书籍价格</th>
+      <th>购买数量</th>
+      <th>其他操作</th>
+    </tr>
+    </thead>
+
+    <tbody>
+<!--    需要双重的循环,因为books是数组,数组的每一个值又是对象,对象中 又有多个属性值-->
+      <tr v-for="(item,index) in books"><!--books是数组,需要循环输出每一本书-->
+<!--        <td v-for="value in item">{{value}}</td>&lt;!&ndash;每本书是一个对象,每个对象中又有多个属性值,又需要遍历每一个对象的属性值&ndash;&gt;-->
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.date}}</td>
+<!--        <td>{{getFinalPrice(item.price)}}</td>&lt;!&ndash;这里给我们的数据进行加上Y和保留两位数字&ndash;&gt;-->
+      <td>{{item.price|showPrice}}</td><!--这里使用了过滤器,可以对数据进行处理-->
+      <td>
+
+        <button v-on:click="minus(index)" v-bind:disabled="item.count<=1">-</button><!--需要注意一个问题,当我们的书的数量到达1是不应该让这个'-'按钮生效的,即不让'-'按钮展示，v-bind:""绑定一个disabled属性。v-bind:disabled="item.count<=1"-->
+        {{item.count}}
+        <button v-on:click="increase(index)">+</button>
+
+      </td>
+        <td>
+          <button v-on:click="removeButton(index)">移除</button><!--用户可能想将书籍移除出购物车-->
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+    <!--  <h4>总价为:{{getFinalPrice(getTotalPrice())}}</h4>&lt;!&ndash;对总价钱进行过滤处理(加上￥和保留两位数字)&ndash;&gt;-->
+    <h4 v-if="books.length>0">总价为:{{totalPrice|showPrice}}</h4><!--对总价钱进行过滤处理(加上￥和保留两位数字) ,推荐使用这种方法-->
+  </div>
+
+
+<!--  v-else-->
+  <h4 v-else>{{message}}</h4><!--else和if必须是相邻的吧？-->
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+在es6中,对for循环进行了一定的改进,我们通常更加提倡用es6中的for循环,可以简化变成
+item表示数组元素值
+-->
+<body>
+<div id= "app">
+
+  <h4>{{totalPrice|showPrice()}}</h4>
+  <h4>{{totalPrice1|showPrice()}}</h4>
+  <h4>{{totalPrice2|showPrice()}}</h4>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+
+    //数据
+    data: {
+
+      books: [
+
+        {
+          id: 1,
+          name: '《算法导论》',
+          date: '2006-9',
+          price: 85.00,
+          count: 1,
+        },
+        {
+          id: 2,
+          name: '《UNIX编程》',
+          date: '2006-2',
+          price: 59.00,
+          count: 1,
+        },
+
+        {
+          id: 3,
+          name: '《编程珠玑》',
+          date: '2008-10',
+          price: 39.00,
+          count: 1
+        },
+
+        {
+          id: 4,
+          name: '《代码大全》',
+          date: '2006-3',
+          price: 128.00,
+          count: 1,
+        }
+      ],
+
+    },
+
+    //计算属性
+    computed: {
+
+      //计算书籍购物车中的总价格
+      //方法一普通for循环
+      totalPrice() {
+
+        let sum = 0;
+        for (let i = 0; i < this.books.length; i++) {
+
+          sum += this.books[i].price * this.books[i].count;
+
+        }
+        return sum;
+      },
+
+      //方法二 增强for(let i in this.books) 这个for循环拿到的是数组的索引值！
+      totalPrice1() {
+        let sum = 0;
+        for (let i in this.books) {//拿到是一个索引值
+          // console.log(i);//控制台查看是不是真的拿到索引值
+          sum += this.books[i].price * this.books[i].count;
+        }
+        return sum;
+
+      },
+
+    //  方法三for(let item of this.books)这个for循环拿到的是数组的每一个元素,(当然每一个数组元素又是一个对象)
+
+      totalPrice2() {
+        let sum = 0;
+        for (let item of this.books) {
+          sum += item.price * item.count;
+
+        }
+
+        return sum;
+
+      },
+
+
+    //  reduce方法
+
+
+    },
+
+  //  过滤器,也就是一个函数,但是使用时侯用 数据 | 方法
+    filters:{//过滤器是filters,而不是filter,一定要记得加s啊!
+
+      showPrice(price) {
+        return "￥" + price.toFixed(2);//输出价格方式为 ￥311.00
+      },
+
+    },
+
+  });
+</script>
+</body>
+</html>

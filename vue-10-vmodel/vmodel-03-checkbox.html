@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+checkbox分为两类:
+单选:
+多选:
+-->
+<body>
+<div id= "app">
+
+<!--  checkbox单选框,对应的是String类型-->
+  <div>
+    <label for="agree">
+      <input type="checkbox" id="agree" v-model="isAgree">同意协议
+    </label>
+
+    <h4>您选择的是:{{isAgree}}</h4>
+    <button v-bind:disabled="!isAgree">下一步</button><!--如果不勾选,则不能进行下一步的操作-->
+  </div>
+<!--  checkbox复选框,多选框对应的就是数组类型-->
+  <div>
+
+    <label for="">
+      <input type="checkbox"  value="篮球" v-model="hobbies">篮球
+      <input type="checkbox"  value="足球" v-model="hobbies">足球
+      <input type="checkbox"  value="板球" v-model="hobbies">板球
+      <input type="checkbox"  value="月球" v-model="hobbies">月球
+      <input type="checkbox"  value="地球" v-model="hobbies">地球
+
+    </label>
+
+    <h4>您的爱好有:{{hobbies}}</h4>
+
+  </div>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      isAgree: false,//默认选择不同意
+      hobbies:[],
+    },
+  });
+</script>
+</body>
+</html>

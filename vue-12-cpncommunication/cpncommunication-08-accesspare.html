@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+父组件访问子组件
+我们先来看下$children的访问
+this. $children是一个数组类型,它包含所有子组件对象(父组件可能包含多个子组件,所以是数组类型)。我们这里通过一一个遍历,取出所有子组件的message状态。
+-->
+<body>
+<template id="cpntempl">
+  <div>
+
+    <h4>hello cpn</h4>
+
+  </div>
+
+
+</template>
+
+<template id="cpntempl2">
+  <div>
+
+    <h4>hello cpn2</h4>
+
+  </div>
+
+
+</template>
+
+
+<div id= "app">
+
+    <cpn></cpn><!--能用双标签就用双标签,别用但标签,html大部分都是以双标签为准的！-->
+    <cpn2></cpn2>
+    <button v-on:click="btnclick()">按钮</button>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn={
+
+    template: '#cpntempl',
+
+    data() {
+        return{
+
+          info:{
+            name: 'liwenli',
+            age:18,
+            sex:'male',
+            height:178,
+
+          },
+
+        }
+    },
+
+    methods:{
+      showmessage() {
+        console.log('cpn');
+
+      },
+    },
+
+  };
+
+  let cpn2={
+
+    template: '#cpntempl2',
+
+    data() {
+      return{
+
+        info:{
+          name: 'wangshuwei',
+          age:18,
+          sex:'female',
+          height:178,
+
+        },
+
+      }
+    },
+
+    methods:{
+      showmessage() {
+        console.log('cpn2');
+
+      },
+    },
+
+  };
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+
+    methods: {
+
+      btnclick() {
+        console.log(this.$children);//控制台先打印一下有没有拿到子组件数组对象
+        this.$children[0].showmessage();//父组件(vue实例调用一下子组件的showmessage()方法,这说明可以通过$children取得子组件数组,然后通过下标直接访问子组件
+        this.$children[1].showmessage();//父组件(vue实例调用一下子组件的showmessage()方法,这说明可以通过$children取得子组件数组,然后通过下标直接访问子组件
+        console.log(this.$children[0].info);//都是在控制台中才能看得到
+        console.log(this.$children[1].info);
+      }
+    },
+
+    components:{
+      cpn: cpn,
+      cpn2: cpn2,
+    }
+  })
+</script>
+</body>
+</html>

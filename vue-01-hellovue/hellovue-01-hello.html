@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--
+本节目标:第一个vue程序
+1.下载vue.js,引入到vue-study项目的js文件夹
+2.通过<script src="../js/vue.js"></script>引入vue.js
+3.学会通过vue.js写个hello vue 的html
+-->
+<body>
+<!--        绑定了app (vue的一个实例),使用vue时候一定要在vue的实例范围之内,其他的地方vue代码是没有办法生效的 -->
+        <div id="app">
+           <h1>{{message}}</h1>
+            <h1>{{name}}</h1>
+        </div>
+<!--        没有绑定app-->
+        <div>
+          <h4>{{message}}</h4>
+        </div>
+
+        <script src="../js/vue.js"></script>
+        <script>
+
+            //在es6里面，let定义变量，const定义常量
+            let vue = new Vue({
+                el: '#app',//用于挂载要管理的元素element
+                data: {//用于定义一些数据
+
+                    message: 'hello vue',
+                    name: 'liwenli',
+                //声明式编程
+                },
+            });
+        </script>
+
+</body>
+</html>

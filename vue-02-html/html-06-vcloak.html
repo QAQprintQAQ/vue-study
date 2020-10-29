@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+
+    [v-cloak]{
+
+      display: none;
+    }
+
+  </style>
+</head>
+<!--
+在某些情况下,我们浏览器可能会直接显然出未编译的Mustache标签。
+先显示{{message}},经过vue解析后,才会展示hello vue,怎么解决这个对用户视觉不好的问题？
+在vue解析之前，div中有一个属性v-cloak
+在vue解析之后，div中没有一个属性v-cloak
+
+-->
+<body>
+
+  <div id= "app">
+<!--    vue解析之前,会一直显示{{message}},直到vue解析到message的时候才会显示hello vue-->
+    <h4>{{message}}</h4>
+<!--    vue解析之前,不会显示{{message}},什么都不会显示,vue解析到message时候才会显示hello vue-->
+    <h4 v-cloak>{{message}}</h4>
+  </div>
+
+  <script src= "../js/vue.js"></script>
+  <script>
+
+    setTimeout(
+
+        function () {
+
+          let vue = new Vue({
+            el: '#app',
+            data: {
+              message: 'hello vue',
+            },
+          })
+
+        //  先显示{{message}},经过vue解析后,才会展示hello vue,这样对用户的视觉是很不好的
+
+        },2000);
+
+  </script>
+
+</body>
+</html>

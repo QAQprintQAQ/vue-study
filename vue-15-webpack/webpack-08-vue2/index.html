@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+single page application(spa)
+vue代码正常运行之后,我们来考虑另外一个问题:
+如果我们希望将data中的数据显示在界面中,就必须是修改index.html。如果我们后面自定义了组件,也必须修改index.html来使用组件
+但是html模板在之后的开发中,我并不希望手动的来频繁修改,是否可以做到呢?
+定义template属性:
+在前面的Vue实例中,我们定义了el属性,用于和index.htmI中的#app进行绑定,让Vue实例之后可以管理它其中的内容
+这里,我们可以将div元素中的{message}}内容删掉,只保留一个基本的id为div的元素
+但是如果我依然希望在其中显示{{message}}的内容,应该怎么处理呢?
+我们可以再定义一个template属性
+
+1.本节的目的:实现不修改index.html
+2.在index.html中只保留vue中的<div id="app"></div>,将里面的html标签全部删除或者直接注释掉
+3.在main.js中的vue实例中新增一个template:``, 然后将index.html 中<div id="app"></div>里面的标签代码写在template:``,里面
+把index.html中的展示页面写到tempalte:``,  将html语法写在这里确实感觉到很不舒服,但是实现了当vue中的data:{}改变的时,不修改index.html,而修改template:``,
+当vue实例中el,template都存在的时候,vue实例中的template:``,中的html标签代码会替换掉index.html中的<div id="app"></div>。这是vue的工作了
+4.注意:
+ template:`</div>
+ </div>`,//template中的'<div></div>'是必要的,能够起到root标签的作用,用于包裹其他标签代码
+
+-->
+<body>
+
+<div id="app">
+<!--&lt;!&ndash;  当我们在main.js中改变data的时候,我们想展示就必须到index.html中进行添加修改,但是这违反了spa,所以我们得改方法了！我们只留一个<div id="app"></div>->-->
+<!--<h4>{{message}}</h4>
+  <h4>{{name}}</h4>
+  <h4>{{height}}</h4>
+  <button v-on:click="btnclick()">转换</button>-->
+
+</div>
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--type="module"能将js文件都相互的隔离起来,每个js文件形成一个作用域,这样不同的js文件,命名相同也不会发生命名冲突了,
+但是问题是万一我们真的需要用到其他js文件中的变量呢,我们就应该进行导入这个变量和导出变量操作-->
+<script src="ming.js" type="module"></script>
+<script src="hong.js" type="module"></script>
+<script src="mingplus.js" type="module"></script>
+<script src="hongplus.js" type="module"></script>
+
+</body>
+</html>

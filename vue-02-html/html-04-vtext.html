@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+v-text作用和Mustache比较相似:都是用于将数据显示在界面中
+v-text通常情况下,接受一个string类型
+v-text和mustache是差不多的，mustache比v-text要灵活
+
+-->
+<body>
+  <div id= "app">
+    <h4>{{message}}</h4>
+    <h4 v-text="message"></h4>
+<!--    下面的'李文利'将会被v-text覆盖掉，不会展示-->
+    <h4 v-text="message">李文利</h4>
+  </div>
+
+  <script src= "../js/vue.js"></script>
+  <script>
+    let vue = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello vue',
+      },
+    });
+  </script>
+</body>
+</html>

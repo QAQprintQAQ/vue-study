@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+这一节的 slot-scope已经过,请使用 v-scope
+
+-->
+<body>
+
+<!--通过这个slot将会去引用slot标签定义的插槽对象-->
+<template v-slot="slot">
+  <span v-for="item in slot.data">{{item}}-</span><!--我们想自定义数组的展现形式,我们这里用一个'-'作为分割符-->
+<!--  <span v-for="item in slot.data">{{item}}*</span>&lt;!&ndash;我们想自定义数组的展现形式,我们这里用一个'*'作为分割符&ndash;&gt;-->
+
+</template>
+
+<template id="cpntempl">
+
+  <div>
+<!--    插槽对象-->
+    <slot v-bind:data="languages">
+       <ul>
+        <li v-for="item in languages">{{item}}</li>
+       </ul>
+    </slot>
+  </div>
+</template>
+
+<div id= "app">
+
+    <cpn></cpn>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn = {
+    template: '#cpntempl',
+    data() {
+      return{
+        message: 'hello cpn',
+        languages: ['c', 'c++', 'java', 'python', 'javascript', 'php'],
+      };
+    },
+  };
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+
+    components: {
+      cpn: cpn,
+    },
+  })
+</script>
+</body>
+</html>

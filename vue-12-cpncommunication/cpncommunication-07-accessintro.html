@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+
+父子组件的访问方式: $children,$refs,$parent
+-->
+<!--
+有时候我们需要父组件直接访问子组件，子组件直接访问父组件,或者是子组件访问根组件。
+父组件访问子组件:使用$children(得到是一个对象数组)或$refs(reference)(得到的是一个对象)
+子组件访问父组件:使用$parent
+
+-->
+<body>
+<div id= "app">
+  <h4>{{message}}</h4>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+  })
+</script>
+
+</body>
+</html>

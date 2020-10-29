@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+文件 - 图片 (url-loader,file-loader进行处理)//有些版本webpack不需要配置url-loader,注意一下
+
+引言:我们在css样式中用一张图片做为背景,我们能直接npm run build 吗？答案是不能
+当我们通过webpack加载css的时候,webpack会发现有一张图片,webpack也会将这张图片当作一个组件去处理,但是webpack又没有那个能力去处理,最后就会报错
+1.我们需要安装处理url的依赖去处理图片 npm install --save-dev url-loader@1.1.2
+C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-05-image>npm install --save-dev url-loader@1.1.2
+2.webpack.config.js中的module进行配置url-loader规则
+
+     {
+            test: /\.(png|jpg|gif)$/,
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: 8192
+                }
+              }
+            ]
+          }
+3.当加载的图片小于limit时， 会将图片编译成base64字符串形式图片
+当加载的图片大于limit时候,要使file-loader模块进行加载 npm install --save-dev file-loader@3.0.1
+4.添加file-loader不需要进行webpack.config.js配置。(只需要下载就行了不需要配置,这个是比较特殊的)
+5.terminal 输入 npm run build。
+但是,我们发现图片并没有显示出来去控制台找到url元素之后发现'url(ee3c63b6ea8a1b7c6b79fccdc12c916a.jpg)',这个图片是webpack打包后的图片,这张图片的真实地址是在./dist/ee3c63b6ea8a1b7c6b79fccdc12c916a.jpg
+这个路径'url(ee3c63b6ea8a1b7c6b79fccdc12c916a.jpg)'表示图片在当前文件夹下面的ee3c63b6ea8a1b7c6b79fccdc12c916a.jpg,这是因为图片使用的路径不正确默认情况下, webpack会将生成的路径直接返回给使用者所以图片显示不出来.
+是路径不对的原因怎么才能显示图片呢? 需要在 webpack.config.js 文件中加上 publicPath:'./dist/' (表示所有的url文件经过webpack打包后都会放在这个文件./dist/文件下面)
+module.exports={
+
+  entry: './src/main.js',//入口
+  output:{//出口
+
+    path: path.resolve(__dirname,'dist'),
+    filename: 'bundle.js',//导出地文件名
+    publicPath: './dist/'//表示打包过的url(图片)文件都放在'./dist/'目录下面
+  },
+
+6.注意。我们发现webpack自动帮助我们生成一个非常长的名字这是一个32位hash值,目的是防止名字重复。
+但是，真实开发中,我们可能对打包的图片名字有一定的要求比如,将所有的图片放在一个文件夹中 ,跟上图片原来的名称,同时也要防止重复
+所以,我们可以在webpack.config.js中的url规范中的options中添加，上如下选项:
+img :文件要打包到的文件夹
+name :获取图片原来的名字,放在该位置
+hash:8 :为了防止图片名称冲突,依然使用hash ,但是我们只保留8位
+ext:使用图片原来的扩展名
+
+/*
+注意这个一定要写在options里面,写在options外面会被认为是无效的
+[name],表示图片的名字的变量,这个名字就是webpack没有打包时候的./src/img/下面的照片的名字.一定要写中括号,这样写才是变量的表示,要不然就是img/name这个照片
+[hash]为了防止同一个目录下面出现重复的名字而设置的hash值,hash值默认是32位,但是我们一般用不到那么多位,我们就选取了8位。也要写上中括号,写上中括号才是变量的表示,否则就是普通的名字
+[ext]表示后缀名的变量名(.[ext],可以是jpg,png等)也要写上中括号,要不然就不是后缀名了,.ext 没有这种文件
+*/
+
+7.terminal中运行npm run build 后我们在./dist/下面会出现一个img目录,这就是webpack url-loader规则中的options下面定义的./dist/img文件夹。
+-->
+<body>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

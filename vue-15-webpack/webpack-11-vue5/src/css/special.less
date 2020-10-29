@@ -1,0 +1,11 @@
+//创建一个特殊的非css样式表,要想在html中显示效果,我们可以导入到html中,但是我们不推荐,我们希望能通过webpack将less文件进行打包
+//1.需要在webpack入口main.js中依赖less文件
+//2.下载处理less文件的less-loader(npm install --save-dev less-loader@4.1.0 less@3.9.0)
+//3.在webpack.config.js中的module中导入less规则
+//4.terminal 中重新打包发布
+@fontSize: 50px;//定义一个变量
+@fontColor: orange;
+body {
+  font-size: @fontSize;
+  color: @fontColor;
+}

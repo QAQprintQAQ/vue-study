@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+ 子组件访问父组件:$parent
+ 子组件访问父组件,在子组件中监听父组件,按钮应该在子组件里面,不是在父组件里面
+
+-->
+<body>
+
+
+<!--cpn2-->
+<template id="cpn2templ">
+  <div>
+
+
+    <h4>hello cpn2</h4>
+    <button v-on:click="btnclick2()">按钮</button><!--在子组件中进行监听父组件,所以btnclick2()方法定义在子组件methods中-->
+
+  </div>
+
+</template>
+
+
+<!--cpn-->
+<template id="cpntempl">
+  <div>
+
+    <h4>hello cpn</h4>
+    <button v-on:click="btnclick()">按钮</button><!--在子组件中进行监听父组件,所以btnclick()方法定义在子组件methods中-->
+    <cpn2></cpn2>
+  </div>
+
+</template>
+
+
+
+<div id= "app">
+
+  <cpn></cpn>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+
+//cpn2
+  let cpn2={
+
+    template: '#cpn2templ',
+
+    data() {
+      return{
+        info:{
+          name: 'baby',
+          age:5,
+          sex:'female',
+          height:56,
+
+        },
+
+      };
+    },
+
+    methods:{
+
+      showmessage2() {
+        console.log('cpn2');
+      },
+
+      //下面的这个btnclick2()方法用于访问父组件
+      btnclick2() {
+        console.log('btnclick2');
+        //访问当前组件(cpn2)的父组件(cpn)
+        console.log('-----cpn2访问父组件------');
+        this.$parent.showmessage();//通过this.$parent调用当前组件父组件(cpn)的methods:下面的showmessage()方法
+        console.log(this.$parent);//打印当前组件的父组件对象
+        console.log(this.$parent.info);//访问this.$parent调用当前组件父组件(cpn)的data:下面的info对象
+        console.log(this.$parent.info.name);
+      //访问当前组件(cpn2)的父组件(cpn)的父组件
+        console.log('-----cpn2访问父组件的父组件--------');
+        this.$parent.$parent.show();//访问当前组件(cpn2)的父组件(cpn)的父组件的methods:下面的show()方法
+        console.log(this.$parent.$parent);//打印当前组件的父组件的父组件对象
+        console.log(this.$parent.$parent.info);//访问this.$parent调用当前组件父组件(cpn)的父组件的data:下面的info对象
+        console.log(this.$parent.$parent.info.name);
+        console.log('-------cpn2访问root组件------');
+        console.log(this.$root);//直接访问当前组件的跟组件,vue实例
+
+      },
+    },
+
+  };
+
+
+  //cpn
+  let cpn={
+
+    template: '#cpntempl',
+
+    data() {
+      return{
+
+        info:{
+          name: 'wangshuwei',
+          age:18,
+          sex:'female',
+          height:178,
+
+        },
+
+      };
+    },
+
+    methods:{
+
+      showmessage() {
+        console.log('cpn');
+      },
+
+      //下面的这个btnclick()方法用于访问父组件(vue实例)
+      btnclick() {
+        console.log('btnclick');
+        console.log('------cpn访问父组件---------');
+        this.$parent.show();//通过this.$parent调用当前组件父组件的methods:下面的show()方法
+        console.log(this.$parent);//打印当前组件的父组件对象
+        console.log(this.$parent.info);//访问this.$parent调用当前组件父组件的data:下面的info对象
+        console.log(this.$parent.info.name);
+
+      },
+    },
+
+    //在cpn组件下面再注册一个cpn2组件,cpn2是cpn的子组件,cpn是vue实例的子组件
+    components: {
+
+      cpn2:cpn2,
+    },
+
+  };
+
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+      info: {
+        name: 'liwenli',
+        age: 18,
+        sex: 'male',
+        height: 178,
+      },
+    },
+
+    methods:{
+      show() {
+        console.log('vue');
+      },
+    },
+
+    components:{
+      cpn: cpn,
+
+    }
+  })
+</script>
+</body>
+</html>

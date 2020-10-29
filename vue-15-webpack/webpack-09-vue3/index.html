@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+问题:当vue的实例中的template:``,代码太多的话就会显得非常的不舒服,而且是在main.js中写的html标签,给人一种依赖性太强的感觉
+我们可以将父组件vue实例中的template:``,data:{},methods:{},的代代码放到一个vue组件cpnapp中,
+然后父组件vue实例中通过components:{cpnapp},注册这个子组件cpnapp,这样我们的父组件vue实例的很多工作就交给这个子组件cpnapp,
+最后父组件vue实例只需要在自己的template中调用子组件cpnapp标签template:'<cpnapp></cpnapp>',
+或者直接在index.html中的vue实例<div id="app"><cpnapp></cpnapp></div>中调用子组件标签即可。直接看代码演示
+
+
+-->
+<body>
+
+<div id="app">
+<!--  推荐直接去vue实例中的template中调用子组件cpnapp标签<cpnapp></cpnapp>
+      index.html中的vue实例<div id="app"><cpnapp></cpnapp></div>中调用,也可以在这个vue实例template:'<cpnapp></cpnapp>',是等价的！
+-->
+<!--<cpnapp></cpnapp>-->
+</div>
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

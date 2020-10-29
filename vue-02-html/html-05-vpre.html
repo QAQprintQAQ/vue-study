@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+用途:当我们不希望vue对元素进行解析时候,我们可以使用v-pre
+v-pre用于跳过这个元素和它子元素的编译过程,用于显示原本的Mustache语法。
+ -->
+<body>
+  <div id= "app">
+<!--    这里会显示hello vue-->
+    <h4>{{message}}</h4>
+<!--    这里会显示{{message}}-->
+    <h4 v-pre>{{message}}</h4>
+  </div>
+
+  <script src= "../js/vue.js"></script>
+  <script>
+    let vue = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello vue',
+      },
+    });
+  </script>
+</body>
+</html>

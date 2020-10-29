@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+考虑到在标签里面写if elseif else比较复杂,我们提倡在methods:{},computed:{}里面写if elseif else 的方法函数或者计算属性
+-->
+<body>
+<div id= "app">
+
+  <h4>{{showMessage()}}</h4>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      score: 83,
+    },
+
+    methods: {
+      showMessage() {
+
+        let result = '';
+        if (this.score >= 90) {
+          result = '优秀';
+        } else if (this.score >= 80) {
+
+          result = '良好';
+
+        }else if (this.score >= 70) {
+          result = '一般';
+        }else if (this.score >= 60) {
+          result = '及格';
+        } else {
+          result = '不及格';
+        }
+
+        return result;//一定要返回这个结果,要不然结果就不会显示在浏览器
+      }
+
+
+  },
+
+
+  });
+</script>
+</body>
+</html>

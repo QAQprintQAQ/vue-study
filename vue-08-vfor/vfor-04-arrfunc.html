@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+  本节主要探究 javascript数组中哪些方法是响应式的！
+-->
+<body>
+<div id= "app">
+
+  <ul>
+    <li v-for="item in letters":key = "item">{{item}}</li><!--这里控制台会警告显示key的值重复了-->
+  </ul>
+  <button v-on:click="buttonClick()">按钮</button>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E'],
+    },
+
+    methods:{
+      buttonClick() {
+
+
+        //下面的方法都是响应式的
+        //push()往数组的末尾添加一个元素
+        // this.letters.push('F');
+
+        // pop()删除数组的最后一个元素
+        // this.letters.pop();
+        // shift()删除数组的第一个元素
+        // this.letters.shift();
+        // unshift()在数组的最前面添加一个元素
+        // this.letters.unshift('F');
+        // this.letters.unshift('F', 'G', 'S');//这个函数可以添加多个参数,表示点击一次按钮同时在数组最前端添加这个三个(FGS)元素
+        // splice()该作用比较多 删除/插入/替换
+        //splice()表示删除
+        // splice(start,counts)表示从start位置删除元素,counts表示点击一次按钮删除元素的个数
+        // this.letters.splice(1,2);//表示从第三个元素开始每点击一次按钮删除2个元素,counts没有表示一次删完后面的所有元素
+        //splice()替换
+        // this.letters.splice(1, 3, 'm', 'n', 'l');//表示从第二个元素开始,把后面的元素分别替换为m,n,l
+        //splice()插入,第二个参数必须为0,如果不为0,则表示替换
+        // this.letters.splice(1, 0, 'm', 'n', 'l');//第二个参数一定要为0,表示从第二元素开始,分别插入m,n,l三个元素
+        // sort()数组排序
+        // this.letters.sort();
+        // reverse()会将数组反转
+        // this.letters.reverse();
+
+        // 下面的情况不是响应式的
+        //通过数组索引值修改数组不是响应式的,点击按钮后在浏览器界面中显示的还是原来的数组,但是在console控制台中数组已经改变了,因此不是响应式的
+        // this.letters[0] = 'F';// this.letters.splice(0,1,'F');//所以我们应该怎么解决这个问题呢？当然是用我们上面介绍的splice()方法this.letters.splice(0,1,'F');
+        this.letters.splice(0, 1, 'F');
+      },
+
+    },
+  });
+</script>
+</body>
+</html>

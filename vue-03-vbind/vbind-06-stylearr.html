@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+
+  v-bind通过数组绑定style属性值
+
+
+-->
+<body>
+<div id= "app">
+<!--  如果在数组里面加上单引号则表示一个普通的字符串,而不是变量-->
+  <h4 v-bind:style="['baseStyle1','baseStyle2']">{{message}}</h4>
+<!--  这个才是真正的的v-bind通过数组绑定style属性值-->
+  <h4 v-bind:style="[baseStyle1,baseStyle2]">{{message}}</h4>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+      baseStyle1:{color: 'red'},
+      baseStyle2:{fontSize:'100px'},
+    },
+  });
+</script>
+
+</body>
+</html>

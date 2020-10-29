@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+官方推荐我们在使用v-for时,给对应的元素或组件添加.上一个:key属性。
+key的作用主要是为了高效的更新虚拟DOM。
+-->
+<body>
+<div id= "app">
+<!--  假如我们需要在B和C的中间插入一个F,那么我们应该怎么做呢？-->
+  <ul>
+    <li v-for="item in letters":key = "item">{{item}}</li><!--绑定一个key高效地更新dom,  :key=""里面可以是item,index具体选择还得看哪个值(id)是不重复的不更改的-->
+
+  </ul>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E'],
+    },
+  });
+</script>
+</body>
+</html>

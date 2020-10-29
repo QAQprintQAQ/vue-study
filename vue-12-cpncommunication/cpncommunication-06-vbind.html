@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+父组件的初始值可以绑定到子组件上,但是子组件input标签输入值的 时候父组件是接收不到的,所以才会出现props中的值不改变
+该程序还没有完成,有bug。可能是出现在子组件发出请求,父组件接收不到的问题上,因为初始值可以双向绑定,但是当子组件改变值的时候,父组件是无法接收到值的,估计是这一环节出错了
+-->
+<body>
+<template id="cpntempl">
+
+  <div>
+      <h4>props:{{childnum1}}</h4>
+    <h4>data:{{datachildnum1}}</h4>
+<!--    <input type="text" v-model="childnum1">&lt;!&ndash;需求:input输入框标签输入数字,子组件cpn中的childnum1也双向绑定input标签输入的数字,同时父组件vue实例中的num1也跟着双向绑定input标签输入的值(或者说父组件vue实例绑定子组件cpn中的childnum1的值)&ndash;&gt;-->
+    <input type="text" v-bind:value="datachildnum1" v-on:input="childnum1input1"><!--childnum1input1这个方法不要写()-->
+
+      <h4>props:{{childnum2}}</h4>
+      <h4>data:{{datachildnum2}}</h4>
+
+    <input type="text" v-bind:value="datachildnum2" v-on:input="childnum2input2"><!--childnum2input2这个方法不要写()-->
+<!--    <input type="text" v-model="childnum2">&lt;!&ndash;需求:input输入框标签输入数字,子组件cpn中的childnum1也双向绑定input标签输入的数字,同时父组件vue实例中的num1也跟着双向绑定input标签输入的值(或者说父组件vue实例绑定子组件cpn中的childnum1的值)&ndash;&gt;-->
+
+  </div>
+</template>
+
+
+<div id= "app">
+  <cpn v-bind:childnum1="num1"  v-bind:childnum2="num2" v-on:num1change1="cpnnum1change1" v-on:num2change2="cpnnum2change2"></cpn>
+  <h4>num1:{{num1}}</h4>
+</div>
+
+
+<script src= "../js/vue.js"></script>
+<script>
+  let cpn={
+
+        template: '#cpntempl',
+
+         props: {
+           childnum1:Number,
+           childnum2:Number,
+         },
+
+        data() {
+          return {
+              datachildnum1: this.childnum1,
+              datachildnum2: this.childnum2,
+          };
+        },
+
+    methods:{
+
+      //    子组件发出事件,传递给父组件
+      childnum1input1(event) {
+        this.datachildnum1 = event.target.value;
+        this.$emit('num1change', this.datachildnum1);
+      },
+
+      childnum2input2(event) {
+        this.datachildnum2 = event.target.value;
+        this.$emit('num2change', this.datachildnum2);
+
+      },
+    },
+  };
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      num1: 4,//父组件的初始值可以绑定到子组件上,但是子组件input标签输入值的 时候父组件是接收不到的,所以才会出现props中的值不改变
+      num2: 3,
+
+    },
+    methods: {
+    //    写父组件接收子组件事件的响应解决方法
+      cpnnum1change1(value) {
+        this.num1 = parseInt(value);
+
+      },
+
+      cpnnum2change2(value) {
+        this.num2 = parseInt(value);
+
+      },
+
+    },
+
+    components:{
+      cpn:cpn,
+    },
+  })
+</script>
+</body>
+</html>

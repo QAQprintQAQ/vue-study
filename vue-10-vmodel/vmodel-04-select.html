@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+和checkbox-样, selec也分单选和多选两种情况。
+单选:只能选中一个值。
+ v-model绑定的是一个值。
+当我们选中option中的一个时 ,会将它对应的value赋值到mySelect中
+多选:可以选中多个值。
+v-model绑定的是一个数组。
+当选中多个值时,就会将选中的option对应的value添加到数组mySelects中
+
+-->
+<body>
+<div id= "app">
+<!--  单选,字符串类型-->
+ <div>
+   <select name="" id="" v-model="fruit"><!--注意双向绑定v-model在select标签的属性里面,而不是在option属性里面-->
+     <option>苹果</option><!--v-model绑定不是绑定在这-->
+     <option>香蕉</option>
+     <option>梨子</option>
+     <option>橘子</option>
+     <option>榴莲</option>
+   </select>
+   <h4>您所选择的水果是:{{fruit}}</h4>
+ </div>
+
+<!--  多选,数组类型-->
+  <div>
+    <select v-model="fruits" multiple><!--注意双向绑定v-model在select标签的属性里面,而不是在option属性里面--><!--multiple-->
+      <option>苹果</option><!--v-model绑定不是绑定在这-->
+      <option>香蕉</option>
+      <option>梨子</option>
+      <option>橘子</option>
+      <option>榴莲</option>
+    </select>
+    <h4>您所选择的水果有:{{fruits}}</h4>
+  </div>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      fruit: '香蕉',
+      fruits:[],
+
+    },
+  });
+</script>
+</body>
+</html>

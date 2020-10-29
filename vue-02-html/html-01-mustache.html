@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+本节目标:将vue中的data数据插入到html页面中,放在标签内容中,不是标签属性的地方.即我们要动态地绑定标签内容,通过data元素值地改变来改变标签里面地内容
+1.通过mustache语法,也就是两个大括号{{message}},成功地将vue data中的message插入到了html中
+-->
+<body>
+  <div id= "app">
+<!--    {{message}}将vue data成功地插入到html页面
+        这些都是mustache地一些语法
+-->
+    <h4>{{message}}</h4>
+    <h4>{{firstName+lastName}}</h4>
+    <h4>{{firstName+' '+lastName}}</h4>
+    <h4>{{firstName}} {{lastName}}</h4>
+    <h4>{{counter*5}}</h4>
+  </div>
+
+  <script src= "../js/vue.js"></script>
+
+  <script>
+    let vue = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello vue',
+        firstName: 'wenli',
+        lastName: 'li',
+        counter: 10,
+      },
+    });
+  </script>
+</body>
+</html>

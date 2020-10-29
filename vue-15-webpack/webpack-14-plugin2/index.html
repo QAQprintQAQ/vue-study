@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--到现在可能我们还在想项目下面的node_modules是用来干嘛的,其实我们一个项目的所有插件,node库,webpack等资源都放在这个目录下面。-->
+<!--
+目前,我们的index.html文件是存放在项目的根目录下的。
+我们知道,在真实发布项目时,发布的是dist文件夹中的内容,但是dist文件夹中如果没有index.htm|文件,那么打包的js等文件也就没有意义了。
+所以,我们需要将index.html的文件打包到dist文件夹中,这个时候就可以使用HtmlWebpackPlugin插件
+HtmIWebpackPlugin插件可以为我们做这些事情:
+自动生成一个index.html文件(可以指定模板来生成)
+将打包的js文件,自动通过script标签插入到body中
+1.安装HtmIWebpackPlugin插件
+npm install html-webpack-plugin@3.2.0 --save--dev
+C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-14-plugin2>npm install html-webpack-plugin@3.2.0 --save-dev
+
+2.在webpack.config.js中从node_modules中导入html-webpack-plugin(从node_modules中导入html-webpack-plugin插件,为什么要设置变量名字呢？因为我们在后面的时候会用到这个变量)
+const HtmlWebpackPlugin = require('html-webpack-plugin');//从node_modules中导入html-webpack-plugin名
+
+3.在webpack.config.js中从设置Plugins
+ new HtmlWebpackPlugin(),//假如我们导入html-webpack-plugin的时候没有定义'HtmlWebpackPlugin'这个变量名,只是单纯的require('html-webpack-plugin');我们可以直接使用 new html-webpack-plugin()吗？
+
+4.terminal中 npm run build 打包
+打包完成后,观察我们的目录,我们会发现。在./dist/目录下面会出来一个index.html文件。这说明我们的html-webpack-plugin安装成功了
+
+5.虽然打包后产生了一个index.html。我们打开这个index.html我们会发现会像下面一样
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Webpack App</title>
+  </head>
+  <body>
+  <script type="text/javascript" src="./dist/bundle.js"></script>
+  </body>
+</html>
+
+我们会发现这个和我们的 './src/index.html'中的index.html不一样.少了一个<div id="app"></div>
+
+6.那么我们应该怎么做才能让打包后的'./dist/index.html'和'./src/index.html'保持一致呢？
+我们需要修改webpack.config.js文件中plugins部分的内容如下:
+
+new HtmlWebpackPlugin({
+      template: 'index.html',//./dist/index.html的模板和./src/index.html保持一致
+
+    }),//假如我们导入html-webpack-plugin的时候没有定义'HtmlWebpackPlugin'这个变量名,只是单纯的require('html-webpack-plugin');我们可以直接使用 new html-webpack-plugin()吗？
+
+7.另外,我们需要删除之前在output中添加的publicPath属性。否则插入的script标签中的src可能会有问题
+(开始觉得没有问题,直到我打开'./dist/'目录下面的index.html发现是空白页面.为什么是空白页面呢？
+你看dist目录下面的index.html中的script标签中bundle.js的路径。script的路径按理说是'./bundle.js',因为当前的目录已经是./dist/目录了,而'./dist/bundle.js' 这个路径就相当于'./dist/dist/bundle.js'.所以dist目录下面的index.html找不到bundle.js)
+
+所以,赶紧把publicPath从webpack.config.js中注释掉！
+
+8.terminal 中运行npm run build 打包
+打包完后,我们观察./dist/目录下面的index.html。我们会发现,此时的./dist/index.html和./src/index.html是一模一样的(包括自己写的注释都是一样的,我们可以猜想。./dist/index.html就是从./src/index.html复制而来)
+
+9.我们用'./dist/'目录下面的index.html打开网页为什么显示找不到script src="./dist/bundle.js"这个文件
+因为这个自动生成html只是从'./src/index.html'中复制了一份, 在'./dist/'目录下面的index.html中的script目录应该用'./bundle.js',而不是'./dist/bundle.js'
+当然它会生成两个script标签.一个是复制'./src/index.html',另一个是根据publicPath出来的,因为publicPath: './dist/',所以另外一个html文件也会输出到'./dist/bundle.js'
+这样的话,'./dist/index.html'两个script标签中的bundle.js都找不到,于是就会报错"找不到'./dist/bundle.js资源'"
+-->
+<body>
+
+<div id="app"></div>
+
+<!--./dist目录下也会出现一个 script src="./dist/bundle.js" 然而./dist目录下面的index.html中导入的script路径应该是用 './bundle.js',而不是'./dist/bundle.js'-->
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

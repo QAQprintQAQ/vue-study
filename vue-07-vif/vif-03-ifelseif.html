@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id= "app">
+
+  <h4 v-if="score>=90">{{message1}}</h4>
+  <h4 v-else-if="score>=80">{{message2}}</h4>
+  <h4 v-else-if="score>=70">{{message3}}</h4>
+  <h4 v-else-if="score>=60">{{message4}}</h4>
+  <h4 v-else>{{message5}}</h4>
+
+
+<!--通过调用函数一样实现了效果,并且看起来没有那么复杂-->
+<!--  <h4>{{showMessage()}}</h4>-->
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+      score: 95,//去控制台改变你score的值,message会发生改变 vue.score = 78;
+      message1: '优秀',
+      message2: '良好',
+      message3: '一般',
+      message4: '及格',
+      message5: '不及格'
+
+    },
+    //
+    // methods: {
+    //   showMessage() {
+    //
+    //     let result = '';
+    //     if (this.score >= 90) {
+    //       result = '优秀';
+    //     } else if (this.score >= 80) {
+    //
+    //       result = '良好';
+    //
+    //     }else if (this.score >= 70) {
+    //       result = '一般';
+    //     }else if (this.score >= 60) {
+    //       result = '及格';
+    //     } else {
+    //       result = '不及格';
+    //     }
+    //
+    //     return result;//一定要返回这个结果,要不然结果就不会显示在浏览器
+    //   }
+    //
+    //
+    // }
+
+
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+
+网络请求(使用setTimeout()模拟):
+aaa ->自己处理(10行)
+处理: aaa111 ->自己处理(10行)
+处理:aaa111222 ->自己处理
+-->
+<body>
+
+<script>
+
+
+  new Promise((resolve, reject) => {//当我们只有resolve()的时候，new Promise((resolve))即可，因为不会返回错误！
+
+    setTimeout((res) => {
+      // resolve(res);
+      resolve('aaa');//暂时没有传输res,我们用一个固定的字符串aaa代替
+    },2000);
+
+  }).then((res) => {//我们这里都是默认是成功的！所以没有必要写then()的第二函数(处理错误信息)
+    console.log(res);
+    console.log('第一层的十行代码');
+    res = res + '111';//拼接'111'
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(res);
+      },2000);
+    }).then((res) => {
+      console.log(res);
+      console.log('第二层的十行代码');
+      res = res + '222';
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(res);
+        },2000);
+      }).then((res) => {
+        console.log(res);
+        console.log('第三层的十行代码');
+      });
+    });
+  });
+</script>
+</body>
+</html>

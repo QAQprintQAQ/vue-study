@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+本节:计算属性的引入
+计算属性放在computed:{}
+函数放在methods:{}
+
+属性不是函数,调用的时候不加小括号
+-->
+<body>
+<div id= "app">
+<!--这样来显示一个人的名字也太繁琐了,我们可以找一个简单的方法-->
+  <h4>{{firstName}} {{lastName}}</h4>
+  <h4>{{firstName}} {{lastName}}</h4>
+  <h4>{{firstName}} {{lastName}}</h4>
+  <h4>{{firstName}} {{lastName}}</h4>
+  <h4>{{firstName}} {{lastName}}</h4>
+
+<!--
+
+我们能不能就直接通过<h4>{{fullName}}</h4>将名字显示出来呢？
+方法一:通过定义一个函数,这种方法也挺好,但是就是有函数调用时候的小括号,让人有点别扭
+方法二:通过计算属性
+-->
+
+<!--  方法一:通过定义一个getFullName()函数-->
+   <h4>{{getFullName()}}</h4>
+   <h4>{{getFullName()}}</h4>
+   <h4>{{getFullName()}}</h4>
+   <h4>{{getFullName()}}</h4>
+   <h4>{{getFullName()}}</h4>
+
+
+<!--  方法二:通过计算属性-->
+
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+  <h4>{{fullName}}</h4>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      firstName:'wenli',
+      lastName:'li',
+
+    },
+
+    computed:{
+
+      //计算属性虽然看起来是一个函数,但是它的本质还是一个属性,名字尽量不要用动词的形式如getFullName,而应该改为fullName
+      //计算属性在调用的时候不用在名字后面加小括号,就是一个属性
+      fullName:function () {
+        return this.firstName+ '' + this.lastName
+
+      }
+    },
+
+    methods:{
+
+      getFullName:function () {
+
+        return this.firstName + ' ' + this.lastName
+
+      },
+    },
+  });
+</script>
+</body>
+</html>

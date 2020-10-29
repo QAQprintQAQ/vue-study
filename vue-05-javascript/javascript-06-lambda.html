@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+es6箭头函数
+在我们的javascript 中有三种定义函数的方式(前面我们只讲了两种！)
+1.定义函数的方式: function
+ let funcname = function(){};
+2.对象字面量中定义函数: funcname: function(){}
+  let obj = {
+    funcname: function(){},
+    funcname2: function(){},
+          ......
+  }
+3.箭头函数(匿名函数,或者说是lambda)
+  函数有两个参数的情况
+  let funcname = (para,para2) =>{ return para+para2}//para,para2表示参数,这是两个参数的情况！
+  函数有一个参数的情况
+  let funcname2 = (para) =>{ return para}//para表示参数,这是一个参数的情况！但是由于只有一个参数,我们可以把小括号直接省略不写！
+  let funcname2 =  para =>{ return para}//para表示参数,这是一个参数的情况！但是由于只有一个参数,我们可以把小括号直接省略不写！
+
+  函数有多行的情况并且有返回值的情况
+  let funcname = (para,para2) =>{
+      return para+para2
+
+  }//函数有多行的情况！
+  函数只有一行的情况并且有返回值的情况
+  let funcname = (para,para2) =>{return para+para2}//函数只有一行的情况且有返回值,常规写法。
+  let funcname = (para,para2) =>para+para2//函数只有一行的情况且有返回值,函数会自动地将para+para2返回,特殊写法
+
+  函数只有一行的情况并且没有返回值的情况
+  let funcname = (para,para2) =>{console.log('this is a line of string');}//函数只有一行的情况且没有返回值,常规写法。
+  let funcname = (para,para2) =>console.log('this is a line of string');//函数只有一行的情况且没有返回值,特殊写法。console.log函数是没有返回值的
+
+4.如何调用函数
+  funcname();
+
+
+
+
+
+-->
+<body>
+
+<script>
+
+</script>
+</body>
+</html>

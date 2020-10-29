@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+ 本节目的:将cpnapp这子组件整合为js文件
+ 引言:上节课已经将vue实例中的代码都抽离到创建的子组件cpnapp中了.但是假如子组件多的话,子组件放在webpack入口main.js里面会显得main.js特别的臃肿.
+ 这时候我们可以将创建的子组件cpnapp从main.js中抽离出来.
+
+ 1.在./src/目录下面新建一个vue目录,在./src/vue/目录下面新建一个cpnapp.js文件
+ 2.将子组件cpnapp拷贝到cpnapp.js文件下面,然后再将子组件cpnapp注释掉.
+ 3.拷贝到vue目录下的cpnapp.js中后,需要将变量cpnapp从cpnapp.js中暴露出来
+
+//封装后需要导出
+export {
+  cpnapp
+};
+
+ 4.webpack 入口main.js需要导入cpnapp这个变量
+ import {cpnapp} from "./vue/cpnapp.js";//从vue目录下导入子组件cpnapp
+
+ 5.terminal中运行 npm run build 进行打包。能够正常的显示。
+-->
+<body>
+
+<div id="app">
+<!--  推荐直接去vue实例中的template中调用子组件cpnapp标签<cpnapp></cpnapp>
+      index.html中的vue实例<div id="app"><cpnapp></cpnapp></div>中调用,也可以在这个vue实例template:'<cpnapp></cpnapp>',是等价的！
+-->
+<!--<cpnapp></cpnapp>-->
+</div>
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

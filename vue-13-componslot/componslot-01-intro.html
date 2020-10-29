@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+为什么要使用插槽(slot)
+在生活中很多地方都有插槽,电脑的USB插槽,插板当中的电源插槽。插槽的目的是让我们原来的设备具备更多的扩展性。
+比如电脑的USB我们可以插入U盘、硬盘、手机、音响、键盘、鼠标等等。
+
+组件的插槽:
+组件的插槽也是为了让我们封装的组件更加具有扩展性。
+组件内部预留一些空间,让使用者可以决定组件内部的一些内容到底展示什么。
+
+
+如何去封装这类的组件呢?
+它们也很多区别,但是也有很多共性。
+如果,我们每一个单独去封装一个组件,显然不合适:比如每个页面都返回,这部分内容我们就要重复去封装。
+但是,如果我们封装成一个,好像也不合理:有些左侧是菜单,有些是返回,有些中间是搜索,有些是文字,等等。
+
+如何封装合适呢?抽取共性,保留不同。
+最好的封装方式就是将共性抽取到组件中,将不同的保留为插槽。
+一旦我们预留了插槽,就可以让使用者根据自己的需求,决定插槽中插入什么内容。
+是搜索框,还是文字,还是菜单。由调用者自己来决定。
+这就是为什么我们要学习组件中的插槽slot的原因。
+
+插槽的基本使用
+1.在组件里面需要经常变更的位置写上标签<slot></slot>
+2.假如slot标签位置中大部分时候都是用的某个标签如:button标签,则我们可以将button标签设置为slot标签的默认值如<slot><button>按钮</button></slot>
+3.当我们使用cpn组件标签的时候我们可以传入自己需要的标签<cpn><input></cpn>,<cpn><button>按钮</button></cpn>等
+4.如果有多个值，同时放入到组件进行替换时,一起作为替换元素
+ <cpn>
+    <input type="text">
+    <button>提交</button>
+  </cpn>
+
+-->
+<body>
+<template id="cpntempl">
+
+  <div>
+    <h4>{{cpnmessage}}</h4>
+<!--    <button>按钮</button>-->
+    <!--
+    我们现在有一个需求,就是这个button标签的位置在不同的cpn组件实例中显示不同的标签,我们应该怎么实现呢？
+    假如固定的写上button标签的话显然是不符合要求的,这个时候就应该将这个button标签的位置换成slot标签,以是实现cpn组件在不同的实例中在该位置实现不同的组件
+
+    -->
+    <slot><button>slot标签默认按钮</button></slot><!--当大部分都是button标签的时候,我们可以将slot标签的默认值设置称为button标签-->
+    <!--
+      这是预留的插槽,当我们在dom中调用 <cpn></cpn>时候传入一个button标签时候(即<cpn><button>按钮</button></cpn>),
+      slot标签就会被替换为<button>按钮</button>,不传入标签的时候就会被隐藏
+    -->
+  </div>
+</template>
+
+
+<div id= "app">
+<!--   -->
+  <cpn></cpn><!--没传入标签表示slot标签里面默认是button标签(默认标签是自己设置的,也可以不设置)-->
+  <cpn><input></cpn>
+  <cpn><a href="www.baidu.com">百度一下</a></cpn>
+  <cpn><img src="../imag/logo.png"></cpn>
+  <cpn>
+    <input type="text">
+    <button>提交</button>
+  </cpn>
+
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn = {
+    template: '#cpntempl',
+    data() {
+      return{
+        cpnmessage: 'hello cpn',
+
+      };
+    },
+  };
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+
+    components: {
+      cpn: cpn,
+    },
+  })
+</script>
+</body>
+</html>

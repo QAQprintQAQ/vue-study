@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+组件可以访问Vue实例数据吗?
+我们发现不能访问,而且即使可以访问,如果将所有的数据都放在Vue实例中, Vue实例就会变的非常臃肿。
+结论: Vue组件应该有自己保存数据的地方。
+
+组件是一个单独功能模块的封装:
+这个模块有属于自己的HTML模板,也应该有属于自己的数据data。
+
+-->
+<body>
+
+<!--将html从组件中抽离方法二,当我们不用脚手架时候,这种方法还是比较好的,比较建议-->
+<template id="cpntempl">
+  <div>
+    <h4>{{title}}</h4>
+    <h4>{{contents}}</h4>
+    <h4>{{tail}}</h4>
+  </div>
+</template>
+
+
+<template id="cpn2templ">
+  <div>
+    <h4>{{title2}}</h4>
+    <h4>{{contents2}}</h4>
+    <h4>{{tail2}}</h4>
+  </div>
+</template>
+
+<div id= "app">
+  <!--  调用组件-->
+  <cpn></cpn>
+  <!--  调用局部组件-->
+  <cpn2></cpn2>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  //注册全局组件,'cpn'表示调用的标签名
+  Vue.component('cpn',{
+    template: '#cpntempl',//对应于template标签中的id
+  //  组件里面也应该有一个位置用来放置组件自己的数据,这个位置就是data,组件里面的data是一个函数,它返回一个对象,不能返回字符串
+    data() {
+      return {
+        title: '我是全局组件里面的data()下的标题',
+        contents: '我是全局组件里面的data()下的内容',
+        tail: '我是全局组件里面的data()下的结尾',
+
+      }
+    },
+  });//最后面可以加上';',但是不能加','
+
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+      message: 'hello vue',
+    },
+    //  注册局部组件方式
+    components:{
+
+      'cpn2':{
+        template: '#cpn2templ',//对应于template标签中的id
+
+        data() {
+          return {
+            title2: '我是局部组件里面的data()下的标题2',
+            contents2: '我是局部组件里面的data()下的内容2',
+            tail2: '我是局部组件里面的data()下的结尾2',
+
+          }
+        },
+
+
+      },
+
+    },
+
+  });
+</script>
+</body>
+</html>

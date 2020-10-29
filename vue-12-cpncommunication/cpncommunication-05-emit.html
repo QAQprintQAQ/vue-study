@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+
+子组件向父组件传递数据。那为什么子组件不自己请求呢？当然是因为子组件请求会增加服务器的负担
+子组件有时候需要将数据传输到父组件中,但是更常见的应该是子组件中产生了一些事件需要让父组件知道
+
+如何实现呢？我们可以通过自定义事件来实现,一说到事件我们应该想到的是v-on:来监听事件
+
+
+什么时候需要自定义事件呢?
+当子组件需要向父组件传递数据时,就要用到自定义事件了。
+我们之前学习的v-on不仅仅可以用于监听DOM事件,也可以用于组件间的自定义事件。
+自定义事件的流程:
+在子组件中,通过$elait()来触发,发出事件。
+在父组件中,通过v-on来监听子组件事件。
+
+-->
+<body>
+
+<template id="cpntempl">
+  <div><!--需要一个根标签包裹起来-->
+    <button v-for="item in categories" v-on:click="btnclick(item)">{{item.name}}</button><!---->
+  </div>
+</template>
+
+<div id= "app">
+
+<!--  注意我们这里是子组件发出了itemclick这个事件,我们父组件需要去接受这个事件,因为是父组件接收这个事件,所以我们应该在父组件里面定义一个响应方法-->
+  <cpn v-on:itemclick="cpnclick"></cpn><!--这里的cpnclick()处理方法不要传递参数,甚至连括号都不要写,因为item在html或者是父组件vue实例里面是没有定义的-->
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn ={
+    template: '#cpntempl',
+    data() {
+      //组件自己的数据在这里
+      return{
+        message: 'hello vue',
+        categories: [
+          {id: '1', name: '手机数码'},
+          {id: '2', name: '电脑办公'},
+          {id: '3', name: '家用电器'},
+          {id: '4', name: '日常新鲜'},
+        ]
+      }
+    },
+
+    methods:{
+
+
+      btnclick(item) {//自定义事件$emit(''),子组件传递消息就是通过自定义事件$emit('事件名')发送事件,父组件监听事件,然后再处理事件
+
+        /*
+
+         主要是为了拿到当前点击的对象,然后将当前点击事件的点击对象传递给父组件,
+         这样父组件才能根据子组件传递的内容而展开相应模块的内容,或给出相应的反馈
+         但是如何才能将事件传递到父组件呢?我们可以通过自定义事件来传递。
+
+         */
+
+        this.$emit('itemclick',item);//子组件将发送一个itemclick请求,并将item这个数组元素对象传递到父组件,并且父组件的处理itemclik事件的时候也需要传递一个item参数
+
+      },
+    },
+
+  }
+
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+
+      info: {//传递给子组件cpn
+        name: '李文利',
+        age:20,
+        sex: 'male',
+        height: 178,
+      },
+
+      message: 'hello vue',
+
+    },
+
+    components:{
+      cpn: cpn,//将cpn子组件注册到vue实例
+    },
+
+    methods:{
+      cpnclick(item) {//父组件响应子组件的请求
+        console.log('cpnclick',item);
+      },
+    },
+
+  })
+</script>
+</body>
+</html>

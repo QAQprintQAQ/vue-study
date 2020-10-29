@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+在JavaScript中,使用const修饰的标识符为常量,不可以再次赋值.可以保证数据的安全而不被修改
+1const是常量,不能再被赋值,而且定义了之后就要赋值,不然会报错
+2一经定义就必须立即进行初始化
+3常量的含义是指向的对象不能修改，但是可以改变对象内部的属性值
+
+
+-->
+<body>
+  <script>
+    // const age;//常量没有赋值,报错
+    const str = 'liwenli';
+    // str = 'wangshuwei';//这是错误的,str定义为const是常量,不能再被赋值,而且定义了之后就要赋值,不然会报错
+    console.log(str);
+    //指向的对象不能修改,但是可以修改指向对象的属性值
+    const obj={
+      name: 'liwenli',
+      age: 19,
+      sex: 'male',
+      height:178,
+    }
+    console.log(obj);
+    // obj=str;//这是错误的,const obj指向的对象不能改变
+
+    obj.name = 'wangshuwei';//这是正确的,可以改变const obj指向的对象的属性值,实质就是obj指向的内存地址没有发生改变
+    obj.sex = 'female';
+    obj.age = 20;
+    obj.height = 165;
+
+    console.log(obj);
+
+  </script>
+</body>
+</html>

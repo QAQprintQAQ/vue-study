@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+
+本节需求:当用户只是需要将第一次值进行展示,不希望第二次在控制台改变该值的时候可以用到v-once
+该指令表示元素和组件(组件后面才会学习)只渲染-次,不会随着数据的改变而改变。
+该指令后面不需要跟任何表达式(此如之前的v- for后面是由跟表达式的)
+-->
+<body>
+<div id= "app">
+<!--  控制台中输入app.message='string',不会改变message字符串的值-->
+  <h4 v-once>{{message}}</h4>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+  });
+</script>
+</body>
+</html>

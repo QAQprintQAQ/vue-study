@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+搭建本地服务器
+webpack提供了一个可选的本地开发服务器,这个本地服务器基于node.js搭建,内部使用express框架,可以实现我们想要的让浏览器自动刷新显示我们修改后的结果。不过它是一个单独的模块,在webpack中使用之前需要先安装它
+1.安装
+npm install --save-dev webpack-dgv-server@2.9.1
+C:\Users\imliw\IdeaProjects\vue-study\vue-15-webpack\webpack-15-devserver>npm install --save-dev webpack-dev-server@2.9.3
+2.配置webpack.config.js
+
+  devServer: {
+    contentBase: './dist',
+    inline: true,
+    // port: 8080,//可以不用指定端口,默认是8080
+    // historyApiFallback:,
+  },
+
+devserver也是作为webpack中的一个选项,选项本身可以设置如下属性:
+contentBase :为哪一个文件夹提供本地服务,默认是根文件夹,我们这里要填写./dist
+port :端口号;
+inline :页面实时刷新
+historyApiFallback :在SPA页面中,依赖HTML5的history模式
+
+3.设置package.json文件中设置"scripts".  "devserver": "webpack-dev-server"
+(terminal中直接输入webpack-dev-server是用的全局的,我们要设置局部的。我们运行局部的webpack-dev-server只需要在terminal中输入命令 npm run devsever)
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "devserver": "webpack-dev-server"
+  },
+
+4.当我们修改了代码的时候,我们不需要每次都重新构建部署项目即 npm run build,我们可以直接在terminal 中输入命令npm run devserver,然后我们再也不需要重新输入命令了。它会自己更新相应的代码
+
+5.如何终止本地的webpack-dev-server？
+ctrl + c 就可以终止 webpack-dev-server
+
+6.补充细节 "devserver": "webpack-dev-server --open".会自动跳到web
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "devserver": "webpack-dev-server"
+  },
+
+-->
+<body>
+
+<div id="app"></div>
+
+<!--./dist目录下也会出现一个 script src="./dist/bundle.js" 然而./dist目录下面的index.html中导入的script路径应该是用 './bundle.js',而不是'./dist/bundle.js'-->
+<script src="./dist/bundle.js"></script>
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>

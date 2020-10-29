@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--        绑定了app (vue的一个实例) -->
+        <div id="app">
+            <h1>{{message}}</h1>
+           <h1>{{info.name}}</h1>
+            <h1>{{info.address.country}}</h1>
+            <h1>{{info.url}}</h1>
+         <a v-bind:href="info.url">百度</a>
+            <h1>{{info.links}}</h1>
+        </div>
+
+        <script src="../js/vue.js"></script>
+        <script src="../axios/axios-0.20.0/dist/axios.js"></script>
+        <script>
+
+            //在es6里面，let定义变量，const定义常量
+            let app = new Vue({
+                el: '#app',//用于挂载要管理的元素element
+                data: {//用于定义一些数据
+
+
+            message: 'hello vue',
+
+                //声明式编程
+                },
+
+                data() {
+                    return {
+                        info:{}
+                        //    或者世界info:null
+                        // info: null
+                    };
+
+                },
+                mounted() {//钩子函数
+
+                    axios.get('./data.json').then(response => (this.info = response.data));
+
+                },
+            });
+        </script>
+
+</body>
+</html>

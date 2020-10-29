@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+es6箭头函数
+在我们的javascript 中有三种定义函数的方式(前面我们只讲了两种！)
+1.定义函数的方式: function
+ let funcname = function(){};
+2.对象字面量中定义函数: funcname: function(){}
+  let obj = {
+    funcname: function(){},
+    funcname2: function(){},
+          ......
+  }
+3.箭头函数(匿名函数,或者说是lambda)
+  函数有两个参数的情况
+  let funcname = (para,para2) =>{ return para+para2}//para,para2表示参数,这是两个参数的情况！
+  函数有一个参数的情况
+  let funcname2 = (para) =>{ return para}//para表示参数,这是一个参数的情况！但是由于只有一个参数,我们可以把小括号直接省略不写！
+  let funcname2 =  para =>{ return para}//para表示参数,这是一个参数的情况！但是由于只有一个参数,我们可以把小括号直接省略不写！
+
+  函数有多行的情况并且有返回值的情况
+  let funcname = (para,para2) =>{
+      return para+para2
+
+  }//函数有多行的情况！
+  函数只有一行的情况并且有返回值的情况
+  let funcname = (para,para2) =>{return para+para2}//函数只有一行的情况且有返回值,常规写法。
+  let funcname = (para,para2) =>para+para2//函数只有一行的情况且有返回值,函数会自动地将para+para2返回,特殊写法
+
+  函数只有一行的情况并且没有返回值的情况
+  let funcname = (para,para2) =>{console.log('this is a line of string');}//函数只有一行的情况且没有返回值,常规写法。
+  let funcname = (para,para2) =>console.log('this is a line of string');//函数只有一行的情况且没有返回值,特殊写法。console.log函数是没有返回值的
+
+4.如何调用函数
+  funcname();
+
+5.箭头函数什么地方用的多？
+当一个函数需要作为另外一个函数的参数的时候,我们一般会用到箭头函数
+
+  setTimeout(function () {
+
+  }, 1000);//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+  setTimeout(() => {
+  }, 1000);//用箭头函数代替后的结果
+
+
+6,当一个函数需要作为另外一个函数的参数的时候,我们一般会用到箭头函数。但是在这种情况下我们又需要聊一聊javascript中的this了
+问题:箭头函数中的this是如何查找的?
+答案:向外层作用域中，一层层查找this.直到有this的定义。
+
+
+-->
+<body>
+
+<script>
+  // 版本一
+/*
+  let obj = {
+    func() {
+      setTimeout(function () {
+        console.log(this);//this 代表window对象
+      }, 1000);//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+      setTimeout(() => {
+        console.log(this);//this 代表obj对象
+      }, 1000);//用箭头函数代替后的结果
+
+    }
+  };
+
+ */
+
+
+  // 版本二
+/*
+setTimeout(function () {
+  console.log('======非obj对象的function中的this=======');
+  console.log(this);//this 代表window对象
+}, 1000);//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+setTimeout(() => {
+  '=====非obj对象下面的 =>函数中的this====='
+  console.log(this);//this 代表obj对象
+}, 1000);//用箭头函数代替后的结果
+
+
+const obj = {
+  func() {//调用obj对象的func方法(即obj.func())才会打印在console打印func()下面的信息
+    setTimeout(function () {
+      console.log('======obj对象的function中的this=======');
+      console.log(this);//this 代表window对象
+    });//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+    setTimeout(() => {
+      console.log('=======obj对象下面的 =>函数中的this=========');
+      console.log(this);//this 代表obj对象
+    });//用箭头函数代替后的结果
+
+  },
+  };
+
+obj.func();//调用obj对象的func方法(即obj.func())才会打印在console打印func()下面的信息
+
+ */
+
+// 版本三
+
+setTimeout(function () {
+  console.log('======非obj对象的function中的this=======');
+  console.log(this);//this 代表window对象
+}, 1000);//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+setTimeout(() => {
+  '=====非obj对象下面的 =>函数中的this====='
+  console.log(this);//this 代表obj对象
+}, 1000);//用箭头函数代替后的结果
+
+
+const obj = {
+  func() {//调用obj对象的func方法(即obj.func())才会打印在console打印func()下面的信息
+    setTimeout(function () {
+
+      console.log('======obj对象的function中的this=======');
+      console.log(this);//this 代表window对象
+
+      //套娃
+      setTimeout(function () {
+        console.log('======非obj对象的function中的this======套娃=======');
+        console.log(this);//this 代表window对象
+      }, 1000);//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+      setTimeout(() => {
+        '=====非obj对象下面的 =>函数中的this=====套娃===='
+        console.log(this);//this 代表obj对象
+      }, 1000);//用箭头函数代替后的结果
+
+
+    });//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+    setTimeout(() => {
+      console.log('=======obj对象下面的 =>函数中的this=========');
+      console.log(this);//this 代表obj对象
+
+      //套娃
+      setTimeout(function () {
+        console.log('======obj对象的function中的this=======套娃====');
+        console.log(this);//this 代表window对象
+      }, 1000);//像这种情况,我们使用的是匿名函数作为另外一个函数的参数的,但是我们也可以用箭头函数代替
+
+      setTimeout(() => {
+        '=====obj对象下面的 =>函数中的this======套娃==='
+        console.log(this);//this 代表obj对象
+      }, 1000);//用箭头函数代替后的结果
+
+    });//用箭头函数代替后的结果
+
+  },
+};
+
+  obj.func();//调用
+
+obj.func();//调用obj对象的func方法(即obj.func())才会打印在console打印func()下面的信息
+</script>
+</body>
+</html>

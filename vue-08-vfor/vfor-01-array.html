@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+循环遍历数组的两种方式
+-->
+<body>
+<div id= "app">
+<!--    在遍历的过程中没有获取索引值(下标值)-->
+    <ul>
+      <li v-for="item in names">{{item}}</li><!--注意这里我们要用到mustache语法,假如没有{{}},假如只写了item则只显示item,不显示名字-->
+    </ul>
+
+<!--    在遍历的过程中获取索引值(下标值)-->
+  <ul>
+    <li v-for="(item,index) in names"><!--注意(item,index)用的是小括号,千万不要写成是大括号如:{item,index}这样会显示没有定义nan-->
+      {{index+1}}{{item}}
+    </li>
+  </ul>
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+
+      names: ['李文利', '王淑玮', '郑身林', '李远胜', '张金龙'],
+    },
+  });
+</script>
+
+</body>
+</html>

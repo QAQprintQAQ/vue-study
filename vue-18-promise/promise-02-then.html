@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  //当返回的是reject()时候
+  new Promise((resolve, reject) => {
+    setTimeout((data) => {
+      // resolve(data);//data数据没有暂时没有，就先不处理了，先用自己固定的一个字符串hello world代替
+      resolve('hello world');//成功的时候调用resolve(data)函数，resolve()函数会调用then()函数处理data数据和第二次网络请求等。new Promise()里面没有处理data,而是放到了then()里面处理
+      // reject('error message');//失败的时候调用reject()函数，reject()函数会调用catch()函数返回错误信息！
+    }, 2000);
+  }).then((data) => {
+    //   处理data数据的代码以及第二次网络请求！
+    console.log('=========then()里面只有一个函数0==========');
+    console.log(data);
+
+  }).catch((err)=>{
+    console.log(err);//打印错误信息！
+  })
+
+
+
+  new Promise((resolve, reject) => {
+    setTimeout((data) => {
+      // resolve(data);//data数据没有暂时没有，就先不处理了，先用自己固定的一个字符串hello world代替
+      resolve('hello world'); //如果resolve()被调用，则会执行then(函数1，函数2)函数里面的函数1
+      reject('error message'); //如果reject()被调用，则会执行then(函数1，函数2)函数里面的函数2
+    }, 2000);
+  }).then(//then(函数1,函数2)，函数1表示成功时候的处理数据和请求函数，函数2表示失败时候返回错误信息(相当于上节课的catch())
+      (data) => {//函数1
+        //处理data数据的代码以及第二次网络请求！
+        console.log('==========then()里面有两个函数1===========');
+        console.log(data);
+      },
+      (err)=>{//函数2
+        // 打印错误信息
+        console.log(err);
+      }
+  );
+
+  new Promise((resolve, reject) => {
+    setTimeout((data) => {
+      // resolve(data);//data数据没有暂时没有，就先不处理了，先用自己固定的一个字符串hello world代替
+      resolve('hello world'); //如果resolve()被调用，则会执行then(函数1，函数2)函数里面的函数1
+      reject('error message'); //如果reject()被调用，则会执行then(函数1，函数2)函数里面的函数2
+    }, 2000);
+  }).then(data =>{
+        console.log('==========then()里面有两个函数2===========');
+        console.log(data)
+
+      },err=>{console.log(err)})
+
+</script>
+</body>
+</html>

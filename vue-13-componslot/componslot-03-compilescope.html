@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+<template id="cpntempl">
+
+  <div>
+     <h4>cpn dom</h4>
+  </div>
+</template>
+
+
+<div id= "app">
+
+<!--
+当我们在vue实例中的<cpn v-show="isshow"></cpn>调用isshow的时候,我们调用的是vue实例中的isshow,而不是cpn中的isshow。
+假如我们调用的是cpn组件中的isshow则cpn标签不会显示'cpn dom' 这几个字,因为cpn组件中的isshow:false,
+当我们调用的是vue实例中的isshow的时候会出现'cpn dom',这几个字,因为vue实例中 isshow:true
+
+其实,在vue实例中,我们会把cpn这个标签当作一个普通的标签看待,因为这是vue实例的作用域范围之内.调用的当然是vue实例的数据
+-->
+  <cpn v-show="isshow"></cpn>
+  <h4>{{message}}</h4>
+  <!--浏览器打印的是'hello vue',而不是'hello cpn',因为我们调用的是vue实例的方法,
+  我们在vue实例的作用域内,不会调用cpn组件的数据,假如这样就能调用到,我们还要那么复杂的父子通信干嘛呢？是吧！-->
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpn = {
+    template: '#cpntempl',
+    data() {
+      return{
+        isshow: false,
+        message: 'hello cpn',
+      };
+    },
+  };
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      isshow: true,
+      message: 'hello vue',
+    },
+
+    components: {
+      cpn: cpn,
+    },
+  })
+</script>
+</body>
+</html>

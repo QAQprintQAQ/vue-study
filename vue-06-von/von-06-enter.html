@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+监听某个键盘的键帽(只当事件从某个特定键出发时才发生回调),这里我们监听enter键
+
+-->
+
+<body>
+<div id= "app">
+
+  <input type="text" v-on:keyup.enter="keyup">
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+
+    },
+
+    methods:{
+      keyup() {
+        console.log('keyup');
+      },
+    },
+
+
+  });
+</script>
+
+
+</body>
+</html>

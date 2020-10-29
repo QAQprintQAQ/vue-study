@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+当通过methods中定义方法,以供@click调用时,需要注意参数问题:
+情况一:如果该方法不需要额外参数,那么方法后的()可以不添加。
+但是注意:如果方法本身中有一个参数 ,那么会默认将原生事件event参数传递进去
+情况二:如果需要同时传入某个参数,同时需要event时,可以通过$event传入事件。
+-->
+<body>
+
+<div id= "app">
+  <!--事件调用的方法没有参数-->
+  <button v-on:click="btnClick">按钮0</button><!--btn1Click()函数,没有传入参数,因此我们不需要加()-->
+<!--事件调用的方法有参数-->
+  <button v-on:click="btn1Click('btn1Click')">按钮1</button>
+  <button v-on:click="btn2Click">按钮2</button><!--只需要event的时候可以省略()也会输出-->
+  <button v-on:click="btn3Click('hello vue',$event)">按钮3</button><!--需要传入多个参数且需要event的时候记得加$event-->
+
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+
+    data: {
+      message: 'hello vue',
+    },
+
+    methods:{
+
+      btnClick() {
+        console.log("btnClick");
+      },
+
+      //一个参数,不是event
+      btn1Click(value) {
+
+        console.log(value);//在调用时候一定要记得输入参数(字符串),要不然会报错
+      },
+
+      //一个参数,默认需要传入event
+      btn2Click(event) {
+        console.log(event); //这里Vue默认将浏览器产生的event事件 作为参数传入到方法中
+      },
+
+      //当有多个参数的时候,并且需要event时,我们可以通过$event传入到事件
+      // btn3Click(value,event) {
+      btn3Click(value,$event) {
+        console.log(value, $event);
+
+      },
+    },
+  });
+</script>
+</body>
+</html>

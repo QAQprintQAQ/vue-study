@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+v-bind:  的语法糖(也就是简写)
+: (没错！就是一个英文冒号)
+-->
+<body>
+
+<div id= "app">
+
+  <img :src="imagUrl">
+  <a :href="httpUrl">{{httpName}}</a>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      //服务器中的数据我们一般不会直接放到标签或者属性里面,我们会将数据在viewmodel也就是vue里面进行中转,将数据赋值给一个变量,
+      // 这样当我们从服务器中频繁地更换接口中地数据地时候就可以不用更改view中的数据,而更改viewmodel(vue) 中的data元素中地变量值
+      imagUrl: '../imag/logo.png',
+      httpUrl: 'http://www.baidu.com',
+      httpName: '百度',
+    },
+  });;
+</script>
+</body>
+</html>

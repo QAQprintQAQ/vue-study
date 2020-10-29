@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<!--
+创建局部组件(在vue实例里面注册的组件)
+-->
+<body>
+<div id= "app">
+   <cpn></cpn>
+</div>
+
+<!--这个vue2实例用来测试局部组件是否能在非注册的vue实例下面使用(即检验局部组件是否能在任意vue实例下面使用局部组件),结论是不能-->
+<div id= "app2">
+   <cpn></cpn>
+
+</div>
+
+<script src= "../js/vue.js"></script>
+<script>
+
+  let cpnc = Vue.extend({
+
+    template:`
+    <div>
+      <h4>我是标题</h4>
+      <h4>我是内容</h4>
+      <h4>我是结尾</h4>
+    </div>
+
+    `
+
+  });//最后面可以加上';',但是不能加','
+
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello vue',
+    },
+  //  在vue实例下面创建局部组件,只能在vue这个实例里面用
+    components:{//是components,不是component。记得加上s，要不然都不知道哪里错了
+
+      //cpn是使用组件时候的标签名 <cpn></cpn>,cpnc是组件构造器
+      cpn: cpnc,
+    }
+  });
+
+  let vue2 = new Vue({
+
+    el: 'app2',
+
+    data:{
+
+      message: 'hello vue',
+
+    },
+
+  });
+</script>
+
+</body>
+</html>

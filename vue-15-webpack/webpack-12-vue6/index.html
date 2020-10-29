@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+现在要直接使用vue component 当作cpnapp.vue 的子组件
+1.直接在./src/下面新建一个vue目录,在./src/vue 目录下面新建一个Cpn.vue 文件
+2.在Cpn.vue 里面的template标签里面写html代码
+在Cpn.vue 里面的script标签里面写javascript代码
+在Cpn.vue 里面的style scoped标签里面写css代码
+3.写好了Cpn.vue后我们不需要在Cpn.vue写导出语句了,因为vue 已经给我们写了默认全部导出 export default{}
+4.在需要将Cpn.vue当作子组件的父组件cpnapp.vue中导入子组件Cpn.vue 。注意这里是写在cpnapp.vue中的script标签里面
+import Cpn from "./Cpn.vue";//在这里引入Cpn.vue文件(当作cpnapp.vue的子组件)
+
+5.在父组件cpnapp.vue中写components:{},里面注册 Cpn.vue
+
+ components: {//用于注册子组件
+      Cpn: Cpn,//在cpnapp.vue里面注册一个子组件Cpn.vue
+    },
+
+6.父组件cpnapp.vue 中注册完子组件Cpn.vue 后,我们去cpnapp.vue 的template标签里面通过使用标签<Cpn></Cpn> 调用Cpn.vue 这个子组件
+ <Cpn></Cpn>
+
+ 7.terminal 中输入命令 npm run build 打包发布
+
+-->
+<body>
+
+<div id="app"></div>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>
